@@ -1,38 +1,680 @@
-.App {
-  text-align: center;
+* {
+  font-family: Montserrat;
+  /* font-weight: 400; */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+html,
+body {
+  height: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+#root {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 1 auto;
+}
+
+.App-header,
+footer {
+  padding: 3vw 8vw 4vw 8vw;
+}
+
+main {
+  padding: 4vw 0 4vw 0;
+}
+
+
+
+.App-header {
+  background-color: #404551;
+  min-height: 10vh;
+  display: flex;
+  align-items: center;
+
+  color: white;
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  ul {
+    list-style: none;
+    gap: 18px;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr;
+    align-items: center;
+
+    li {
+
+      a {
+        text-decoration: none;
+        color: white;
+        font-weight: 600;
+        font-size: larger;
+        transition: all ease-in-out 0.2s;
+      }
+
+      a:hover {
+        color: #74d2f8;
+      }
+    }
+
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.App-foter {
+  background-color: #404551;
+  text-align: center;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+h2 {
+  min-width: 100%;
+  text-align: center;
+  font-weight: 600;
+  color: #1d1f23;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.block-tags {
+  padding: 0 8vw 0 8vw;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 0.8em;
+
+}
+.tags {
+  font-size: small;
+  font-weight: 500;
+  text-decoration: none;
+  color: #1d1f23;
+  border: 1px solid #1d1f23;
+  border-radius: 20px;
+  padding: 6px;
+  width: 14%;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: all ease-in-out 0.3s;
+
+}
+.tags:hover {
+  background-color: #404551;
+  color: #74d2f8;
+}
+
+
+.parent-Ad {
+  padding: 1vw  8vw 2vw 8vw;
+  background-color: #F2F4F5;
+  margin-top: 4vw;
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    margin: 0 0 3vw 0;
   }
-  to {
-    transform: rotate(360deg);
+}
+
+.block-Ad {
+  min-width: 100%;
+  height: max-content;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  justify-items: stretch;
+  gap: 14px;
+}
+
+.Ad {
+  border: 1px solid #404551;
+  text-align: center;
+
+  display: grid;
+  align-items: center;
+  align-content: space-between;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto auto;
+
+  a {
+    grid-column: 1 / 3;
+    text-decoration: none;
+
+    div {
+      img {
+        min-width: 100%;
+        max-width: 100%;
+        min-height: 260px;
+      }
+    }
+
+    h4 {
+      grid-column: 1 / 3;
+      color: #1d1f23;
+      font-weight: 500;
+    }
+  }
+  p{
+    grid-row: 2 / 3;
+    grid-column: 2 / 3;
+  }
+
+  .time-Ad {
+    min-width: 150px;
+    margin: 10px 10px 10px 0;
+    grid-column: 2 /3;
+  }
+
+  .block-tags-Ad {
+    grid-column: 1 / 3;
+    margin: 10px 18px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .tags-Ad {
+    font-size: small;
+    text-decoration: none;
+    color: #404551;
+    padding: 3px;
+    transition: all ease-in-out 0.2s;
+  }
+
+  .tags-Ad:hover {
+    color: #003585;
+  }
+
+  address {
+    font-size: small;
+    margin: 10px;
+  }
+  span {
+    font-size: 14px;
+  }
+}
+
+.parent-pagination {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+
+  .pagination {
+    margin: 0;
+    padding: 2vw 0 0 0;
+
+
+    list-style: none;
+    display: flex;
+    gap: 6px;
+
+    a{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      border: 1px solid white;
+      border-radius: 50%;
+      text-align: center;
+      width: 34px;
+      height: 34px;
+      text-decoration: none;
+      color: #1d1f23;
+      font-size: large;
+      font-weight: 600;
+      transition: all ease-in-out 0.1s;
+
+      span {
+        font-size: 32px;
+      }
+    }
+    a:hover {
+      border-color: #1d1f23;
+    }
+  }
+}
+
+
+.parent-AdOne {
+  padding: 0 8vw 0 8vw;
+  display: grid;
+  grid-template-columns: 62%  36%;
+  grid-template-rows: auto;
+  gap: 2%;
+  min-height: max-content;
+}
+
+.AdOne-img-block {
+  background-color: #F2F4F5;
+
+  box-sizing: border-box;
+  max-width: 100%;
+  min-width: 100%;
+  max-height: 750px;
+  min-height: 750px;
+  padding: 14px;
+  margin-bottom: 20px;
+  /* border: 1px solid #1d1f23; */
+}
+
+.AdOne-description {
+  background-color: #F2F4F5;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  padding: 14px;
+
+  div {
+    .AdOne-description-title {
+      font-size: large;
+      min-width: 100%;
+    }
+    p {
+      margin-bottom: 28px;
+    }
+  }
+
+  .block-tags-Ad {
+    margin: 10px 14px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .tags-Ad {
+    font-size: small;
+    text-decoration: none;
+    color: #404551;
+    padding: 3px;
+    transition: all ease-in-out 0.2s;
+  }
+  .tags-Ad:hover {
+    color: #003585;
+  }
+}
+
+.AdOne-comments {
+  background-color: #F2F4F5;
+  margin-bottom: 20px;
+  padding: 14px;
+
+  h4 {
+    margin-left: 12px;
+  }
+
+  .add-comment {
+    width: 100%;
+    position: relative;
+    min-height: 70px;
+    margin-bottom: 20px;
+  
+    input {
+      padding-left: 10px;
+      min-height: 70px;
+      box-sizing: border-box;
+      font-size: larger;
+      color: #1d1f23;
+      min-width: 100%;
+    }
+  
+    button {
+      padding: 0 14px;
+      margin: 14px;
+      border: 1px solid #1d1f23;
+      border-radius: 5px;
+      min-height: 42px;
+      position: absolute;
+      cursor: pointer;
+      background-color: ghostwhite;
+      font-size: 16px;
+      font-weight: 600;
+      right: 0;
+      transition: all ease-in-out 0.2s;
+    }
+
+    button:hover {
+      color: #003585;
+    }
+  }
+
+  .block-comments {
+
+    .parent-comments {
+      margin-bottom: 10px;
+      max-width: 100%;
+      padding: 16px 10px 16px 10px;
+      border: 1px solid  #404551;
+      border-radius: 5px;
+    
+    
+      .comments-owner {
+        min-height: 47px;
+        margin-bottom:16px;
+        display: grid;
+        grid-template-columns: 46px max-content 240px;
+        align-items: center;
+    
+        img {
+          grid-column: 1 / 2;
+          min-width: 45px;
+          min-height: 45px;
+          max-width: 45px;
+          max-height: 45px;
+          border: 1px solid #1d1f23;
+          border-radius: 50%;
+          overflow: hidden;
+        }
+
+        .icon-user{
+          text-align: center;
+          min-width: 45px;
+          min-height: 45px;
+          grid-column: 1 / 2;
+          text-align: center;
+          font-size: 36px;
+          border: 1px solid #1d1f23;
+          border-radius: 50%;
+          overflow: hidden;
+        }
+        p{
+          margin: 0 14px 0 14px;
+          grid-column: 2 / 3;
+        }
+    
+        .comments-time-Ad {
+          grid-column: 3 / 4;
+          font-size: x-small;
+        }
+      }
+
+      .comments-time-Ad {
+        font-size: small;
+      }
+    }
+  }
+
+}
+
+.AdOne-title {
+  background-color: #F2F4F5;
+  height: max-content;
+  margin-bottom: 20px;
+
+  padding: 14px;
+  /* border: 1px solid #1d1f23; */
+  .AdOne-title-price {
+    font-weight: 600;
+    font-size: large;
+    margin-bottom: 16px;
+  }
+
+  .AdOne-title-add, .AdOne-title-message {
+    width: 100%;
+    height: 52px;
+    font-weight: 500;
+    font-size: large;
+    border: 2px solid #1d1f23;
+    border-radius: 5px;
+    transition: all ease-in-out 0.2s;
+    cursor: pointer;
+  }
+  .AdOne-title-message {
+    margin: 14px 0;
+    background-color: #404551;
+    color: #74d2f8;
+  }
+  .AdOne-title-add {
+    background-color: white;
+  }
+
+  .AdOne-title-message:hover {
+    background-color: white;
+    color: #1d1f23;
+    border: 5px solid #1d1f23;
+  }
+  .AdOne-title-add:hover {
+    border: 5px solid #1d1f23;
+  }
+}
+
+.AdOne-owner {
+  background-color: #F2F4F5;
+
+  padding: 14px;
+  /* border: 1px solid #1d1f23; */
+  
+  .owner {
+    min-height: 47px;
+    margin-bottom:16px;
+    display: grid;
+    grid-template-columns: 46px max-content 240px;
+    align-items: center;
+
+    img {
+      grid-column: 1 / 2;
+      min-width: 45px;
+      min-height: 45px;
+      border: 1px solid #1d1f23;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    .icon-user{
+      text-align: center;
+      min-width: 45px;
+      min-height: 45px;
+      grid-column: 1 / 2;
+      text-align: center;
+      font-size: 36px;
+      border: 1px solid #1d1f23;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    p{
+      margin: 0 14px 0 14px;
+      grid-column: 2 / 3;
+    }
+    .owner-time {
+      grid-column: 3 / 4;
+      font-size: 12px;
+    }
+  }
+  .owner-adress {
+    margin-bottom: 10px;
+  }
+  .owner-all-ad {
+    
+    a {
+      text-decoration: none;
+      color: #1d1f23;
+      transition: all ease-in-out 0.2s;
+    }
+
+    a:hover {
+      color: #003585;
+    }
+  }
+}
+
+
+.login-form {
+  border-radius: 5px;
+  overflow: hidden;
+  padding: 1.4%;
+  margin: 0 26%;
+  background-color: #F2F4F5;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: repeat(5, auto);
+  justify-items: center;
+  align-items: center;
+
+  .login-title {
+    grid-row: 1 / 2;
+    grid-column: 1 / 5;
+    margin-bottom: 38px;
+  }
+
+  .login-login, .login-password {
+    width: 100%;
+    height: 52px;
+    font-size: large;
+    box-sizing: border-box;
+    margin-bottom: 28px;
+    border-radius: 5px;
+    border: 1px solid white;
+    padding-left: 12px;
+  }
+
+  .login-login {
+    grid-row: 2 / 3;
+    grid-column: 1 / 5;
+  }
+  div {
+    margin-bottom: 38px;
+    position: relative;
+    width: 100%;
+    height: 48px;
+    grid-row: 3 / 4;
+    grid-column: 1 / 5;
+
+    .icon-eye-blocked, .icon-eye {
+      position: absolute;
+      z-index: 10;
+      font-size: 26px;
+      right: 20px;
+      top: calc(50% - 13px);
+    }
+  }
+  .login-button {
+    grid-row: 4 / 5;
+    grid-column: 3 / 4;
+    width: 160px;
+    padding: 12px;
+    font-weight: 600;
+    font-size: medium;
+    background-color: #4CAF50;
+    border: 2px solid #4CAF50;
+    color: white;
+    border-radius: 5%;
+    cursor: pointer;
+    transition: all ease-in-out 0.2s;
+  }
+  .login-button:hover {
+    background-color: white;
+    color: #4CAF50;
+  }
+
+  .login-registration-link {
+    grid-row: 4 / 5;
+    grid-column: 4 / 5;
+    justify-self: end;
+    text-decoration: none;
+    color: #1d1f23;
+    font-weight: 600;
+    transition: all ease-in-out 0.2s;
+  }
+  .login-registration-link:hover {
+    color: #003585;
+  }
+
+  .login-massge {
+    margin: 38px;
+    grid-row: 5 / 6;
+    grid-column: 1 / 5;
+  }
+}
+
+
+
+.reg-form {
+  border-radius: 5px;
+  overflow: hidden;
+  padding: 1.4%;
+  margin: 0 26%;
+  background-color: #F2F4F5;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: repeat(6, auto);
+  justify-items: center;
+  align-items: center;
+
+  .reg-title {
+    grid-row: 1 / 2;
+    grid-column: 1 / 5;
+    margin-bottom: 38px;
+  }
+
+  .reg-login, .reg-password,  .reg-password-confirm{
+    width: 100%;
+    height: 52px;
+    font-size: large;
+    box-sizing: border-box;
+    margin-bottom: 28px;
+    border-radius: 5px;
+    border: 1px solid white;
+    padding-left: 12px;
+  }
+
+  .reg-login {
+    grid-row: 2 / 3;
+    grid-column: 1 / 5;
+  }
+  div {
+    margin-bottom: 38px;
+    position: relative;
+    width: 100%;
+    height: 48px;
+    grid-column: 1 / 5;
+
+    .icon-eye-blocked, .icon-eye {
+      position: absolute;
+      z-index: 10;
+      font-size: 26px;
+      right: 20px;
+      top: calc(50% - 13px);
+    }
+    .error-password {
+      border: 1px solid red;
+    }
+  }
+  .block-reg-password {
+    grid-row: 3 / 4;
+  }
+  .block-reg-password-confirm {
+    grid-row: 4 / 5;
+  }
+  .reg-button {
+    grid-row: 5 / 6;
+    grid-column: 4 / 5;
+    width: 180px;
+    padding: 12px;
+    font-weight: 600;
+    font-size: medium;
+    background-color: #4CAF50;
+    border: 2px solid #4CAF50;
+    color: white;
+    border-radius: 5%;
+    cursor: pointer;
+    transition: all ease-in-out 0.2s;
+  }
+  .reg-button:hover {
+    background-color: white;
+    color: #4CAF50;
+  }
+
+  .reg-massge {
+    color: red;
+    margin: 38px;
+    grid-row: 6 / 7;
+    grid-column: 1 / 5;
   }
 }
