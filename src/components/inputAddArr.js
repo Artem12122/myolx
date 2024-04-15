@@ -12,7 +12,7 @@ const InputAddArr = ({ arr, setArr, editState, ...props }) => {
       let newPhoneKeys = [...phoneKeys]
 
       for (let i = 0; i < count; i++) {
-        newPhoneKeys = [...newPhoneKeys, uuidv4()]
+        newPhoneKeys.length < 3 && (newPhoneKeys = [...newPhoneKeys, uuidv4()])
       }
       setPhoneKeys(newPhoneKeys);
     } else {
@@ -41,7 +41,7 @@ const InputAddArr = ({ arr, setArr, editState, ...props }) => {
             editState={editState}
             {...props}
           />
-          {!editState && phoneKeys.length !== phoneKeys.indexOf(el) + 1 && (
+          {!editState && phoneKeys.indexOf(el) !== arr.length && (
             <button onClick={() => removePhoneNumber(el)}>⌫</button>
           )}
           <br />
