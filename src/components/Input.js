@@ -11,16 +11,17 @@ const Input = ({ arr, setArr, index, editState, ...props }) => {
   useEffect(() => {
     setNoneInput("");
 
-    arr && editState && arr.length > 0 &&index === arr.length
+    arr && editState && arr.length > 0 && index === arr.length
       ? setNoneInput("none")
       : setNoneInput("");
-
+      
   }, [arr, editState]);
 
   const addNumber = () => {
     if (arr) {
       if (!editStateInput && !arr.includes(inputValue)) {
-        const newArr = [...arr, inputValue];
+        const newArr = [...arr];
+        newArr[index] = inputValue
         setArr(newArr);
       }
     } else setArr([inputValue]);
