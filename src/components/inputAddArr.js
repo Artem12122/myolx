@@ -9,16 +9,18 @@ const InputAddArr = ({ arr, setArr, editState, ...props }) => {
     if (arr !== null && arr.length > 0) {
       const count = arr.length + 1 - phoneKeys.length;
 
+      let newPhoneKeys = [...phoneKeys]
+
       for (let i = 0; i < count; i++) {
-        setPhoneKeys([...phoneKeys, uuidv4()]);
+        newPhoneKeys = [...newPhoneKeys, uuidv4()]
       }
+      setPhoneKeys(newPhoneKeys);
     } else {
       setPhoneKeys([uuidv4()]);
     }
   }, [arr]);
 
   const removePhoneNumber = (el) => {
-    console.log(arr, phoneKeys);
     const index = phoneKeys.indexOf(el);
     const updatedPhoneKeys = phoneKeys.filter((element) => element !== el);
     const updatedPhoneNumbers = [...arr];
@@ -27,8 +29,6 @@ const InputAddArr = ({ arr, setArr, editState, ...props }) => {
     setPhoneKeys(updatedPhoneKeys);
     setArr(updatedPhoneNumbers);
   };
-
-  console.log("phone keys", phoneKeys, arr);
 
   return (
     <div className="phonebook">
