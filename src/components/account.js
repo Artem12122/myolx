@@ -10,7 +10,6 @@ import InputAddArr from "./inputAddArr";
 const Account = () => {
   const { login } = useParams();
   const dispatch = useDispatch();
-  const ref = useRef(null);
 
   const [user, setUser] = useState(store.getState().auth.userInfo);
 
@@ -20,16 +19,13 @@ const Account = () => {
   const [phonesVal, setPhonesVal] = useState(user.phones);
   const [addressesVal, setaddressesVal] = useState(user.addresses);
 
-  const test = () => {
-    console.log(phonesVal);
-  };
-
   const createUser = async () => {
     const { createdAt, ...newUser } = user;
 
     newUser.login = loginVal;
     newUser.nick = nickVal;
     newUser.phones = phonesVal
+    newUser.addresses = addressesVal
 
     console.log(newUser);
 
@@ -62,7 +58,7 @@ const Account = () => {
         <input
           onChange={(e) => setNickVal(e.target.value)}
           type="text"
-          value={nickVal}
+          value={nickVal === null ? "" : nickVal}
           disabled={editState}
           placeholder="Нікнейм"
         />
@@ -70,36 +66,30 @@ const Account = () => {
       </div>
 
       <div className="account-phones">
-        {/* <input
-          onChange={(e) => setLoginVal(e.target.value)}
-          type="text"
-          value={loginVal}
-          disabled={editState}
-        /> */}
 
         <InputAddArr
           arr={phonesVal}
           setArr={setPhonesVal}
           editState={editState}
-          type={"tel"}
+          type="tel"
+          placeholder="Введіть номер телефону"
         />
-
-        {/* <ArrInput arr={phonesVal} onInc={setPhonesVal} editState={editState} type={"tel"}/> */}
-        {/* <input type="tel" ref={ref}/> */}
-        <button onClick={test}>test</button>
-
-        {!editState && <span className="icon-pencil"></span>}
       </div>
       <div className="account-addresses">
-        {user.addresses === null ? "anon" : user.addresses}
-        <span className="icon-pencil"></span>
+        <InputAddArr
+          arr={addressesVal}
+          setArr={setaddressesVal}
+          editState={editState}
+          type="adress"
+          placeholder="Введіть адрессу"
+        />
       </div>
 
       <button onClick={() => dispatch(authSlice.actions.logout())}>
         выйти из аккаунта {login}
       </button>
       <button onClick={() => setEditState(!editState)}>
-        Редагувати профіль
+        {editState ? "Редагувати профіль" : "Скасувати зміни"} 
       </button>
       {!editState && (
         <button

@@ -1,34 +1,45 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const Input = ({ arr, setArr, index, editState, type }) => {
-  const [inputValue, setInputValue] = useState(arr[index] || "");
+const Input = ({ arr, setArr, index, editState, ...props }) => {
+  const [inputValue, setInputValue] = useState((arr && arr[index]) || "");
 
-  const [editStateInput, setEditStateInput] = useState(false);
+  const [editStateInput, setEditStateInput] = useState(
+    arr && arr[index] ? true : false
+  );
+  const [noneInput, setNoneInput] = useState("");
+
+  useEffect(() => {
+    setNoneInput("");
+
+    arr && editState && arr.length > 0 &&index === arr.length
+      ? setNoneInput("none")
+      : setNoneInput("");
+
+  }, [arr, editState]);
 
   const addNumber = () => {
-    if (!editStateInput) {
-      console.log(inputValue, arr, index, editState);
-      const newArr = [...arr];
-      newArr[index] = inputValue;
+    if (arr) {
+      if (!editStateInput && !arr.includes(inputValue)) {
+        const newArr = [...arr, inputValue];
+        setArr(newArr);
+      }
+    } else setArr([inputValue]);
 
-      setArr(newArr);
-      console.log(newArr);
-    }
     setEditStateInput(!editStateInput);
   };
 
   return (
     <>
       <input
-        placeholder="Введіть номер телефону"
+        style={{ display: noneInput }}
         disabled={editStateInput || editState}
-        type={type}
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
+        {...props}
       />
       {!editState && (
         <button onClick={addNumber}>
-          {editStateInput ? "Змінити номер" : "Додати номер"}
+          {editStateInput ? "Змінити" : "Додати"}
         </button>
       )}
     </>
