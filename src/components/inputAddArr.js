@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const InputAddArr = ({ arr, setArr, editState, ...props }) => {
   const [phoneKeys, setPhoneKeys] = useState([uuidv4()]);
+  const [errorMassage, setErrorMassage] = useState("");
 
   useEffect(() => {
     if (arr !== null && arr.length > 0) {
@@ -35,6 +36,7 @@ const InputAddArr = ({ arr, setArr, editState, ...props }) => {
       {phoneKeys.map((el) => (
         <div key={el}>
           <Input
+            setErrorMassage={setErrorMassage}
             arr={arr}
             setArr={setArr}
             index={phoneKeys.indexOf(el)}
@@ -44,9 +46,9 @@ const InputAddArr = ({ arr, setArr, editState, ...props }) => {
           {!editState && phoneKeys.indexOf(el) !== arr.length && (
             <button onClick={() => removePhoneNumber(el)}>⌫</button>
           )}
-          <br />
         </div>
       ))}
+      <p className="error-massage">{errorMassage}</p>
     </div>
   );
 };

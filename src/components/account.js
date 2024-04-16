@@ -8,7 +8,6 @@ import { actionApdateUser } from "../store/Thunk/actionApdateUser";
 import InputAddArr from "./inputAddArr";
 
 const Account = () => {
-  const { login } = useParams();
   const dispatch = useDispatch();
 
   const [user, setUser] = useState(store.getState().auth.userInfo);
@@ -45,6 +44,7 @@ const Account = () => {
         }
       />
       <div className="account-login">
+        <h5>Логін</h5>
         <input
           onChange={(e) => setLoginVal(e.target.value)}
           type="text"
@@ -55,6 +55,7 @@ const Account = () => {
         {!editState && <span className="icon-pencil"></span>}
       </div>
       <div className="account-nick">
+        <h5>Нікнейм</h5>
         <input
           onChange={(e) => setNickVal(e.target.value)}
           type="text"
@@ -66,16 +67,21 @@ const Account = () => {
       </div>
 
       <div className="account-phones">
-
+        <h5>Номера телефону</h5>
         <InputAddArr
           arr={phonesVal}
           setArr={setPhonesVal}
           editState={editState}
+          
           type="tel"
+          name="phone"
+          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+          required
           placeholder="Введіть номер телефону"
-        />
+          />
       </div>
       <div className="account-addresses">
+        <h5>Адрасса</h5>
         <InputAddArr
           arr={addressesVal}
           setArr={setaddressesVal}
@@ -84,11 +90,19 @@ const Account = () => {
           placeholder="Введіть адрессу"
         />
       </div>
+      <div className="account-addresses">
+        На MyOLX з {dateCreatedAt(user.createdAt)}
+      </div>
 
       <button onClick={() => dispatch(authSlice.actions.logout())}>
-        выйти из аккаунта {login}
+        выйти из аккаунта {loginVal}
       </button>
-      <button onClick={() => setEditState(!editState)}>
+      <button 
+        className="account-btn-edit"
+        onClick={() => {
+          setEditState(!editState)
+          !editState && window.location.reload()
+        }}>
         {editState ? "Редагувати профіль" : "Скасувати зміни"} 
       </button>
       {!editState && (
@@ -101,10 +115,6 @@ const Account = () => {
           Зберігти
         </button>
       )}
-
-      <div className="account-addresses">
-        На MyOLX з {dateCreatedAt(user.createdAt)}
-      </div>
     </div>
   );
 };
