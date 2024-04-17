@@ -1,13 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
-const Input = ({
-  arr,
-  setArr,
-  index,
-  editState,
-  setErrorMassage,
-  ...props
-}) => {
+const Input = ({ arr, setArr, index, editState, setErrorMassage, ...props }) => {
   const [inputValue, setInputValue] = useState((arr && arr[index]) || "");
   const [editStateInput, setEditStateInput] = useState(
     arr && arr[index] ? true : false
@@ -22,10 +15,9 @@ const Input = ({
       : setNoneInput("");
   }, [arr, editState]);
 
-
   const validateText = (e) => {
     const newValue = e.target.value;
-    if (newValue.length > 3) {
+    if (newValue.length > 3 && newValue.length < 13) {
       if (!arr.filter((e, i) => i !== index).includes(newValue)) {
         setBtn(false);
         setErrorMassage("");
@@ -36,20 +28,22 @@ const Input = ({
       }
     } else {
       setBtn(true);
-      setErrorMassage("Не меньше 3 символів");
+      newValue.length < 13
+        ? setErrorMassage("Не меньше 4 символів")
+        : setErrorMassage("Не більше 12 символів");
     }
   };
 
   const addNumber = () => {
     if (arr) {
-      if (!editStateInput) {
+      if (!editStateInput && inputValue.length > 3) {
         const newArr = [...arr];
         newArr[index] = inputValue;
         setArr(newArr);
       }
     } else setArr([inputValue]);
 
-    setEditStateInput(!editStateInput);
+    inputValue.length > 3 && setEditStateInput(!editStateInput);
   };
 
   return (
@@ -65,7 +59,7 @@ const Input = ({
         {...props}
       />
       {!editState && (
-        <button onClick={addNumber} disabled={btn}>
+        <button  className="input-btn-edit" onClick={addNumber} disabled={btn}>
           {editStateInput ? "Змінити" : "Додати"}
         </button>
       )}

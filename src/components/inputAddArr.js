@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Input from "./Input";
 import { v4 as uuidv4 } from "uuid";
+import { Delete } from "lucide-react";
 
 const InputAddArr = ({ arr, setArr, editState, ...props }) => {
   const [phoneKeys, setPhoneKeys] = useState([uuidv4()]);
@@ -10,16 +11,16 @@ const InputAddArr = ({ arr, setArr, editState, ...props }) => {
     if (arr !== null && arr.length > 0) {
       const count = arr.length + 1 - phoneKeys.length;
 
-      let newPhoneKeys = [...phoneKeys]
+      let newPhoneKeys = [...phoneKeys];
 
       for (let i = 0; i < count; i++) {
-        newPhoneKeys.length < 3 && (newPhoneKeys = [...newPhoneKeys, uuidv4()])
+        newPhoneKeys.length < 3 && (newPhoneKeys = [...newPhoneKeys, uuidv4()]);
       }
       setPhoneKeys(newPhoneKeys);
     } else {
       setPhoneKeys([uuidv4()]);
     }
-  }, [arr]);
+  }, [arr, editState]);
 
   const removePhoneNumber = (el) => {
     const index = phoneKeys.indexOf(el);
@@ -34,7 +35,7 @@ const InputAddArr = ({ arr, setArr, editState, ...props }) => {
   return (
     <div className="phonebook">
       {phoneKeys.map((el) => (
-        <div key={el}>
+        <div className="input-block-account" key={el}>
           <Input
             setErrorMassage={setErrorMassage}
             arr={arr}
@@ -44,7 +45,12 @@ const InputAddArr = ({ arr, setArr, editState, ...props }) => {
             {...props}
           />
           {!editState && phoneKeys.indexOf(el) !== arr.length && (
-            <button onClick={() => removePhoneNumber(el)}>⌫</button>
+            <button
+              className="input-btn-del"
+              onClick={() => removePhoneNumber(el)}
+            >
+              <Delete />
+            </button>
           )}
         </div>
       ))}
@@ -52,5 +58,4 @@ const InputAddArr = ({ arr, setArr, editState, ...props }) => {
     </div>
   );
 };
-
 export default InputAddArr;

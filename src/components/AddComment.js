@@ -6,13 +6,15 @@ const AddComment = ({_id, setLoading}) => {
   const [loginQuery, {isLoading, data}] = useAddCommentMutation()
 
   return (
-    <div className="add-comment">
+    <form className="add-comment">
       <input
+        type="text"
         placeholder="Залишіть свій відгук про цей товар"
         value={text}
         onChange={(e) => setText(e.target.value)}
       ></input>
       <button
+        type="submit"
         onClick={() => {
           loginQuery({_id, text})
           setText("");
@@ -20,7 +22,7 @@ const AddComment = ({_id, setLoading}) => {
       >
         Додати коментар
       </button>
-    </div>
+    </form>
   );
 };
 

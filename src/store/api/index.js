@@ -4,6 +4,7 @@ import createHistory from "history/createBrowserHistory";
 import authSlice from "../authSlice/authSlice";
 
 export const api = createApi({
+  tagTypes: ["User", "Coment"],
   baseQuery: graphqlRequestBaseQuery({
     url: "http://marketplace.node.ed.asmer.org.ua/graphql",
     prepareHeaders(headers, { getState }) {
@@ -170,17 +171,17 @@ export const api = createApi({
       },
     }),
     setCreateUser: builder.mutation({
-        query: ({ newUser }) => ({
-            document: `
-                        mutation createUser($newUser: UserInput!) {
-                            UserUpsert (user: $newUser) {
-                                _id login nick createdAt phones addresses avatar{ url }
-                            }
-                        }
-                        `,
-            variables: JSON.stringify({newUser}),
-        }),
-        invalidatesTags: (result, error, arg) => ([{type: 'User', id: arg._id}])
+      query: ({ newUser }) => ({
+          document: `
+                      mutation createUser($newUser: UserInput!) {
+                          UserUpsert (user: $newUser) {
+                              _id login nick createdAt phones addresses avatar{ url }
+                          }
+                      }
+                      `,
+          variables: JSON.stringify({newUser}),
+      }),
+      invalidatesTags: (result, error, arg) => ([{type: 'User', id: arg._id}])
     }),
   }),
 });

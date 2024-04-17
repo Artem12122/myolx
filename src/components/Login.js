@@ -1,18 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  Router,
-  Route,
-  Link,
-  Redirect,
-  useParams,
-  Switch,
-} from "react-router-dom";
-
-
+import {Link } from "react-router-dom"
 import { useDispatch } from "react-redux";
 import store from "../store";
-// import { actionFullLogin } from "../store/api";
-import authSlice from "../store/authSlice/authSlice";
 import { actionFullLogin } from "../store/Thunk/actionFullLogin";
 
 
@@ -24,7 +13,8 @@ const Login = () => {
 
   const dispatch = useDispatch();
 
-  const loginFunk = async () => {
+  const loginFunk = async (e) => {
+    e.preventDefault();
     setText("Завантаження")
     
     await dispatch(actionFullLogin(login, password))
@@ -37,7 +27,7 @@ const Login = () => {
 
 
   return (
-    <div className="login-form">
+    <form className="login-form">
       <h2 className="login-title">Вхід</h2>
       <input
         type="text"
@@ -60,21 +50,17 @@ const Login = () => {
         ></span>
       </div>
       <button
+        type="submit"
         className="login-button"
-        onClick={() => loginFunk()}
+        onClick={(e) => loginFunk(e)}
       >
         Увійти
       </button>
-
-      <button onClick={() => dispatch(authSlice.actions.logout())}>
-                выйти из аккаунта
-            </button>
-
       <Link className="login-registration-link" to="/registration">
         Реєстрація
       </Link>
       <p className="login-massge">{text}</p>
-    </div>
+    </form>
   );
 };
 
