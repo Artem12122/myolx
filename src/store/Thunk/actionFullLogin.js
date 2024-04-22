@@ -10,6 +10,6 @@ export const actionFullLogin = (login, password) => async (dispatch) => {
     if (token?.data?.login) {
       dispatch(authSlice.actions.login(token.data.login));
       const user = await dispatch(actionAboutMe());
-      history.push(`/account/${user.data.UserFindOne.login}`)
+      history.push("/")
     }
 };

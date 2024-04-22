@@ -28,6 +28,9 @@ const AdOne = () => {
   const { isFetching, data } = useGetAdOneQuery({ _id });
 
   if (isFetching) return <h2>Loading...</h2>;
+
+  if (!data) return <h2>Ви не увійшли в акаунту</h2>;
+
   const { AdFindOne } = data;
 
   return (
@@ -78,7 +81,7 @@ const AdOne = () => {
           >
             {AdFindOne?.images !== null && AdFindOne?.images.length > 0 ? (
               AdFindOne.images.map((image, index) => (
-                <SwiperSlide key={index} data-hash={`slide${index}`}>
+                <SwiperSlide key={index} data-hash={index !== 0 ? `slide${index}` : null} >
                   <img
                     src={"http://marketplace.node.ed.asmer.org.ua/" + image.url}
                     alt={image.text}

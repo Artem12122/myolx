@@ -9,6 +9,9 @@ const Input = ({ arr, setArr, index, editState, setErrorMassage, ...props }) => 
   const [btn, setBtn] = useState(false);
 
   useEffect(() => {
+    setInputValue((arr && arr[index]) || "")
+    setErrorMassage("");
+
     setNoneInput("");
     arr && editState && arr.length > 0 && index === arr.length
       ? setNoneInput("none")
@@ -18,7 +21,7 @@ const Input = ({ arr, setArr, index, editState, setErrorMassage, ...props }) => 
   const validateText = (e) => {
     const newValue = e.target.value;
     if (newValue.length > 3 && newValue.length < 13) {
-      if (!arr.filter((e, i) => i !== index).includes(newValue)) {
+      if ( !arr || !arr.filter((e, i) => i !== index).includes(newValue)) {
         setBtn(false);
         setErrorMassage("");
         setInputValue(newValue);
@@ -35,7 +38,7 @@ const Input = ({ arr, setArr, index, editState, setErrorMassage, ...props }) => 
   };
 
   const addNumber = () => {
-    if (arr) {
+    if (arr !== null) {
       if (!editStateInput && inputValue.length > 3) {
         const newArr = [...arr];
         newArr[index] = inputValue;

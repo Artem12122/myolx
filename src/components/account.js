@@ -5,6 +5,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { actionApdateUser } from "../store/Thunk/actionApdateUser";
 import InputAddArr from "./inputAddArr";
 import { history } from "../store/api";
+import Basic from "./Dropzone";
 
 const Account = () => {
   const dispatch = useDispatch();
@@ -26,8 +27,10 @@ const Account = () => {
     }
   }, [user]);
 
+  console.log(user);
+
   const createUser = async () => {
-    const { createdAt, ...newUser } = user;
+    const {avatar, createdAt, ...newUser } = user;
 
     newUser.login = loginVal;
     newUser.nick = nickVal;
@@ -51,12 +54,13 @@ const Account = () => {
   return (
     <div className="account">
       <div className="account-img-block">
+        <Basic />
         <img
           className="account-img"
           src={
             user.avatar === null
               ? "https://via.placeholder.com/200x150"
-              : user.avatar.url
+              : "http://marketplace.node.ed.asmer.org.ua/" + 'images/566fc86b5c11ff8159a1b5980b3e44ad'
           }
         />
       </div>

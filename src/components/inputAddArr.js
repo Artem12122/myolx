@@ -8,7 +8,7 @@ const InputAddArr = ({ arr, setArr, editState, ...props }) => {
   const [errorMassage, setErrorMassage] = useState("");
 
   useEffect(() => {
-    if (arr !== null && arr.length > 0) {
+    if (arr !== null && arr?.length > 0) {
       const count = arr.length + 1 - phoneKeys.length;
 
       let newPhoneKeys = [...phoneKeys];
@@ -44,7 +44,7 @@ const InputAddArr = ({ arr, setArr, editState, ...props }) => {
             editState={editState}
             {...props}
           />
-          {!editState && phoneKeys.indexOf(el) !== arr.length && (
+          {!editState && phoneKeys.indexOf(el) !== arr?.length && (
             <button
               className="input-btn-del"
               onClick={() => removePhoneNumber(el)}

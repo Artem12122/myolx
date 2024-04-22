@@ -19,10 +19,10 @@ const Login = () => {
     
     await dispatch(actionFullLogin(login, password))
     if (store.getState().auth.token !== null) {
-        setText("Вход выполнен успешно")
-      } else (
-        setText("Неверный логин или пароль")
-      )
+        setText("Вхід виконано успішно")
+      } else {
+        setText("Невірний логін або пароль")
+      }
   }
 
 
