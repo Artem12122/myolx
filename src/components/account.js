@@ -5,7 +5,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { actionApdateUser } from "../store/Thunk/actionApdateUser";
 import InputAddArr from "./inputAddArr";
 import { history } from "../store/api";
-import Basic from "./Dropzone";
+import Dropzone from "./Dropzone";
 
 const Account = () => {
   const dispatch = useDispatch();
@@ -17,6 +17,7 @@ const Account = () => {
   const [nickVal, setNickVal] = useState(user?.nick);
   const [phonesVal, setPhonesVal] = useState(user?.phones);
   const [addressesVal, setaddressesVal] = useState(user?.addresses);
+  const [avatarVal, setAvatarVal] = useState(user?.avatar);
 
   useEffect(() => {
     if (user) {
@@ -24,10 +25,9 @@ const Account = () => {
       setNickVal(user?.nick);
       setPhonesVal(user?.phones);
       setaddressesVal(user?.addresses);
+      setAvatarVal(user?.avatar);
     }
   }, [user]);
-
-  console.log(user);
 
   const createUser = async () => {
     const {avatar, createdAt, ...newUser } = user;
@@ -36,6 +36,9 @@ const Account = () => {
     newUser.nick = nickVal;
     newUser.phones = phonesVal;
     newUser.addresses = addressesVal;
+    if (avatarVal?._id) {
+      newUser.avatar = { "_id":  avatarVal._id }
+    }
 
     await dispatch(actionApdateUser({ newUser }));
   };
@@ -47,20 +50,21 @@ const Account = () => {
     }
   }
 
-  if (user === null) {
+  if (!user) {
     return <h2>Ви не увійшли в укаунт!</h2>;
   }
 
   return (
     <div className="account">
       <div className="account-img-block">
-        <Basic />
+        {!editState && <Dropzone setAvatar={setAvatarVal}/>}
         <img
           className="account-img"
+          style={{opacity: !editState ? 0.5 : 1}}
           src={
             user.avatar === null
               ? "https://via.placeholder.com/200x150"
-              : "http://marketplace.node.ed.asmer.org.ua/" + 'images/566fc86b5c11ff8159a1b5980b3e44ad'
+              : "http://marketplace.node.ed.asmer.org.ua/" + user.avatar.url
           }
         />
       </div>

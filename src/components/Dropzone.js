@@ -1,17 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {useDropzone} from 'react-dropzone';
 import uploadFile from '../utils/uploadFile';
 
-function Basic(props) {
+function Dropzone({setAvatar}) {
   const {acceptedFiles, getRootProps, getInputProps} = useDropzone();
 
-  useEffect(() => {
-    console.log(acceptedFiles);
-
-    if (acceptedFiles[0]) {
-        uploadFile(acceptedFiles[0])
-    }
-  }, [acceptedFiles])
+    useEffect(() => {
+        if (acceptedFiles[0]) {
+            uploadFile(acceptedFiles[0])
+            .then(res => res.json())
+            .then(data => {
+                setAvatar(data);
+            })
+        }
+    }, [acceptedFiles]);
   
   const files = acceptedFiles.map(file => (
     <li key={file.path}>
@@ -23,10 +25,9 @@ function Basic(props) {
     <section className="container">
       <div {...getRootProps({className: 'dropzone'})}>
         <input {...getInputProps()} />
-        <p>Drag 'n' drop some files here, or click to select files</p>
+        <p>Перетягніть файл аба натисніть для додавання фото</p>
       </div>
       <aside>
-        <h4>Files</h4>
         <ul>{files}</ul>
       </aside>
     </section>
@@ -34,4 +35,4 @@ function Basic(props) {
 }
 
 
-export default Basic
+export default Dropzone

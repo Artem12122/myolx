@@ -161,7 +161,7 @@ export const api = createApi({
       query: ({ _id }) => ({
         document: `query oneUser($query: String){
                     UserFindOne(query: $query){
-                        _id login nick createdAt phones addresses avatar{ url }
+                        _id login nick createdAt phones addresses avatar{ url text _id originalFileName }
                     }
                 }`,
         variables: { query: JSON.stringify([{ _id }]) },
@@ -175,7 +175,7 @@ export const api = createApi({
           document: `
                       mutation createUser($newUser: UserInput!) {
                           UserUpsert (user: $newUser) {
-                              _id login nick createdAt phones addresses avatar{ url }
+                              _id login nick createdAt phones addresses avatar{ _id }
                           }
                       }
                       `,
