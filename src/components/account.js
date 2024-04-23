@@ -71,7 +71,7 @@ const Account = () => {
       <div className="account-login">
         <h5>Логін</h5>
         <input
-          onChange={(e) => setLoginVal(e.target.value)}
+          onChange={(e) => {e.target.value.length > 1 && setLoginVal(e.target.value)}}
           type="text"
           value={loginVal}
           disabled={editState}

@@ -19,9 +19,9 @@ export const api = createApi({
   }),
   endpoints: (builder) => ({
     getAdAll: builder.query({
-      query: () => ({
-        document: `query allAd{
-                    AdFind(query: "[{},{ \\"sort\\":[{\\"_id\\": -1}]}]") {
+      query: (skip) => ({
+        document: `query allAd($count: String){
+                    AdFind(query: $count) {
                       _id
                       title
                       tags
@@ -31,7 +31,14 @@ export const api = createApi({
                       images {_id text createdAt url originalFileName}
                     }
                   }`,
-        // variables
+        variables: {count: JSON.stringify([{},{ sort: [{ _id: -1 }], skip: [skip], limit: [ 12 ] }])}
+      }),
+    }),
+    getAllAdCount: builder.query({
+      query: () => ({
+        document: `query allAdCount{
+                    AdCount(query: "[{}]")
+                  }`,
       }),
     }),
     getTagsAll: builder.query({
@@ -45,7 +52,7 @@ export const api = createApi({
       }),
     }),
     getAllAdTagg: builder.query({
-      query: ({ tag }) => ({
+      query: ({ tag, skip }) => ({
         document: `query allAdTagg($q2: String){
                     AdFind(query: $q2) {
                       _id
@@ -58,7 +65,7 @@ export const api = createApi({
                     }
                   }`,
         variables: {
-          q2: JSON.stringify([{ tags: tag }, { sort: [{ _id: -1 }] }]),
+          q2: JSON.stringify([{ tags: tag }, { sort: [{ _id: -1 }], skip: skip, limit: [ 12 ] }]),
         },
       }),
     }),
@@ -196,3 +203,4 @@ export const useGetAllAdTaggQuery = api.useGetAllAdTaggQuery;
 export const useGetTagsAllQuery = api.useGetTagsAllQuery;
 export const useAddCommentMutation = api.useAddCommentMutation;
 export const useSetCreateUserMutation = api.useSetCreateUserMutation;
+export const useGetAllAdCountQuery = api.useGetAllAdCountQuery;
