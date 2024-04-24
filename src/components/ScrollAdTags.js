@@ -1,44 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { useGetAllAdTaggQuery } from "../store/api";
+import { useGetAllAdCountTagsQuery } from "../store/api";
 import AdComponent from "./Ad";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useDispatch, useSelector } from "react-redux";
+import feedSlice from "../store/feedSlice/feedSlice";
+import { actionLoaderNextTags } from "../store/Thunk/actionLoaderNext";
 
 const ScrollAdTags = () => {
-  const [ad, setAd] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [fetching, setFetching] = useState(true);
+  const dispatch = useDispatch();
 
-  const { tag } = useParams()
-  const {isLoading, data} = useGetAllAdTaggQuery({ tag, skip: [currentPage]})
+  const { tag } = useParams();
+  const ad = useSelector((state) => state.feed.payloadTags);
+  const { isLoading, data: count } = useGetAllAdCountTagsQuery(tag);
 
   useEffect(() => {
-    setCurrentPage(0);
-    setAd([])
+    dispatch(actionLoaderNextTags(tag))
   }, [tag]);
-
-  useEffect(() => {
-    if (fetching && data) {
-        setAd([...ad, ...data.AdFind]);
-        setCurrentPage((prevPage) => prevPage + 12);
-    }
-    setFetching(false);
-  }, [fetching, data, tag]);
 
   useEffect(() => {
     document.addEventListener("scroll", scrollHandler);
     return function () {
       document.removeEventListener("scroll", scrollHandler);
     };
-  }, [ad]);
+  }, [tag, count, ad]);
 
   const scrollHandler = (e) => {
-    if ( e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100 ) {
-      console.log("scroll");
-      setFetching(true);
+    if (
+      e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100 && ad.length < count?.AdCount ) {
+      dispatch(actionLoaderNextTags(tag))
     }
   };
-
-  console.log(ad)
 
   return (
     <div className="parent-Ad">

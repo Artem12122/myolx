@@ -21,6 +21,8 @@ import { history } from "./store/api";
 import Account from "./components/account";
 import ScrollAdAll from "./components/ScrollAdAll";
 import ScrollAdTags from "./components/ScrollAdTags";
+import MyAd from "./components/MyAd";
+import MyAdNew from "./components/MyAdNew";
 
 
 
@@ -44,6 +46,9 @@ function App() {
             <Route path="/login" component={Login} exact />
             <Route path="/account/:login" component={Account} exact />
             <Route path="/registration" component={Registration} exact />
+
+            <Route path="/My/Ad" component={MyAd} exact />
+            <Route path="/My/Ad/new" component={MyAdNew} exact />
           </main>
 
           <Footer />

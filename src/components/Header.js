@@ -40,7 +40,7 @@ function Header() {
           <NavLink to={link}>Ваш профіль</NavLink>
         </li>
         <li>
-          <NavLink to="/add/Ad">Додати оголошення</NavLink>
+          <NavLink to="/My/Ad">Мої оголошення</NavLink>
         </li>
       </ul>
     </header>

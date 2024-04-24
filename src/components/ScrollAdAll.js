@@ -1,34 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { useGetAdAllQuery, useGetAllAdCountQuery } from "../store/api";
+import { useGetAllAdCountQuery } from "../store/api";
+import { useDispatch, useSelector } from "react-redux";
 import AdComponent from "./Ad";
+import { actionLoaderNextAll } from "../store/Thunk/actionLoaderNext";
 
 const ScrollAdAll = () => {
-  const [ad, setAd] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [fetching, setFetching] = useState(true);
-
-  const { isLoading, data } = useGetAdAllQuery(currentPage);
-  const { data: count } = useGetAllAdCountQuery();
+  const dispatch = useDispatch();
+  const ad = useSelector((state) => state.feed.payload);
+  const { isLoading, data: count } = useGetAllAdCountQuery();
 
   useEffect(() => {
-    if (fetching && data) {
-        const newAd = [...ad, ...data.AdFind]
-        setAd(newAd);
-        setCurrentPage((prevPage) => prevPage + 12);
-    }
-    setFetching(false);
-  }, [fetching, data]);
+    dispatch(actionLoaderNextAll())
+  }, []);
 
   useEffect(() => {
     document.addEventListener("scroll", scrollHandler);
     return function () {
       document.removeEventListener("scroll", scrollHandler);
     };
-  }, [ad]);
+  }, [count, ad]);
 
   const scrollHandler = (e) => {
-    if ( (e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100) && ad.length < count?.AdCount) {
-      setFetching(true);
+    if (
+      e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100 && ad.length < count?.AdCount) {
+      dispatch(actionLoaderNextAll())
     }
   };
 

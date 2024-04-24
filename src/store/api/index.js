@@ -31,7 +31,43 @@ export const api = createApi({
                       images {_id text createdAt url originalFileName}
                     }
                   }`,
-        variables: {count: JSON.stringify([{},{ sort: [{ _id: -1 }], skip: [skip], limit: [ 12 ] }])}
+        variables: {
+          count: JSON.stringify([
+            {},
+            { sort: [{ _id: -1 }], skip: [skip], limit: [12] },
+          ]),
+        },
+      }),
+    }),
+    getAdMy: builder.query({
+      query: (_id) => ({
+        document: `query myAd($count: String){
+                    AdFind(query: $count) {
+                      _id
+                      title
+                      tags
+                      address
+                      price
+                      createdAt
+                      images {_id text createdAt url originalFileName}
+                    }
+                  }`,
+        variables: {
+          count: JSON.stringify([{ _id: _id }, { sort: [{ _id: -1 }] }]),
+        },
+      }),
+    }),
+    createNewAd: builder.mutation({
+      query: (newAd) => ({
+        document: `
+                  mutation CreateNewAd($newAd: AdInput){
+                    AdUpsert(ad: $newAd) {
+                      _id
+                    }
+                  }`,
+        variables: { "newAd":
+          newAd
+        }
       }),
     }),
     getAllAdCount: builder.query({
@@ -65,7 +101,22 @@ export const api = createApi({
                     }
                   }`,
         variables: {
-          q2: JSON.stringify([{ tags: tag }, { sort: [{ _id: -1 }], skip: skip, limit: [ 12 ] }]),
+          q2: JSON.stringify([
+            { tags: tag },
+            { sort: [{ _id: -1 }], skip: skip, limit: [12] },
+          ]),
+        },
+      }),
+    }),
+    getAllAdCountTags: builder.query({
+      query: (tag) => ({
+        document: `query allAdCount($q2: String){
+                    AdCount(query: $q2)
+                  }`,
+        variables: {
+          q2: JSON.stringify([
+            { tags: tag },
+          ]),
         },
       }),
     }),
@@ -179,16 +230,18 @@ export const api = createApi({
     }),
     setCreateUser: builder.mutation({
       query: ({ newUser }) => ({
-          document: `
+        document: `
                       mutation createUser($newUser: UserInput!) {
                           UserUpsert (user: $newUser) {
                               _id login nick createdAt phones addresses avatar{ _id }
                           }
                       }
                       `,
-          variables: JSON.stringify({newUser}),
+        variables: JSON.stringify({ newUser }),
       }),
-      invalidatesTags: (result, error, arg) => ([{type: 'User', id: arg._id}])
+      invalidatesTags: (result, error, arg) => [
+        { type: "User", id: arg.newUser._id },
+      ],
     }),
   }),
 });
@@ -204,3 +257,6 @@ export const useGetTagsAllQuery = api.useGetTagsAllQuery;
 export const useAddCommentMutation = api.useAddCommentMutation;
 export const useSetCreateUserMutation = api.useSetCreateUserMutation;
 export const useGetAllAdCountQuery = api.useGetAllAdCountQuery;
+export const useGetAdMyQuery = api.useGetAdMyQuery;
+export const useCreateNewAdMutation = api.useCreateNewAdMutation;
+export const useGetAllAdCountTagsQuery = api.useGetAllAdCountTagsQuery;

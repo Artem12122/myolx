@@ -5,7 +5,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { actionApdateUser } from "../store/Thunk/actionApdateUser";
 import InputAddArr from "./inputAddArr";
 import { history } from "../store/api";
-import Dropzone from "./Dropzone";
+import DropzoneOneFile from "./DropzoneOneFile";
 
 const Account = () => {
   const dispatch = useDispatch();
@@ -30,14 +30,14 @@ const Account = () => {
   }, [user]);
 
   const createUser = async () => {
-    const {avatar, createdAt, ...newUser } = user;
+    const { avatar, createdAt, ...newUser } = user;
 
     newUser.login = loginVal;
     newUser.nick = nickVal;
     newUser.phones = phonesVal;
     newUser.addresses = addressesVal;
     if (avatarVal?._id) {
-      newUser.avatar = { "_id":  avatarVal._id }
+      newUser.avatar = { _id: avatarVal._id };
     }
 
     await dispatch(actionApdateUser({ newUser }));
@@ -48,7 +48,7 @@ const Account = () => {
       dispatch(authSlice.actions.logout());
       history.push("/login");
     }
-  }
+  };
 
   if (!user) {
     return <h2>Ви не увійшли в укаунт!</h2>;
@@ -57,10 +57,10 @@ const Account = () => {
   return (
     <div className="account">
       <div className="account-img-block">
-        {!editState && <Dropzone setAvatar={setAvatarVal}/>}
+        {!editState && <DropzoneOneFile setAvatar={setAvatarVal} />}
         <img
           className="account-img"
-          style={{opacity: !editState ? 0.5 : 1}}
+          style={{ opacity: !editState ? 0.5 : 1 }}
           src={
             user.avatar === null
               ? "https://via.placeholder.com/200x150"
@@ -71,7 +71,9 @@ const Account = () => {
       <div className="account-login">
         <h5>Логін</h5>
         <input
-          onChange={(e) => {e.target.value.length > 1 && setLoginVal(e.target.value)}}
+          onChange={(e) => {
+            e.target.value.length > 1 && setLoginVal(e.target.value);
+          }}
           type="text"
           value={loginVal}
           disabled={editState}
@@ -139,10 +141,7 @@ const Account = () => {
           Зберегти
         </button>
       )}
-      <button
-        className="account-btn-del"
-        onClick={logout}
-      >
+      <button className="account-btn-del" onClick={logout}>
         Вийти з акаунту {loginVal}
       </button>
     </div>

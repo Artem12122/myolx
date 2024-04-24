@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {useDropzone} from 'react-dropzone';
 import uploadFile from '../utils/uploadFile';
 
-function Dropzone({setAvatar}) {
+function DropzoneOneFile({setAvatar}) {
   const {acceptedFiles, getRootProps, getInputProps} = useDropzone();
 
     useEffect(() => {
@@ -35,4 +35,4 @@ function Dropzone({setAvatar}) {
 }
 
 
-export default Dropzone
+export default DropzoneOneFile
