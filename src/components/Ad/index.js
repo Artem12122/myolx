@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import dateCreatedAt from "../../utils/date";
+import placeholder from "../../images/placeholder.png";
+
 
 const AdComponent = ({ Ad, loading }) => {
   if (loading) return <h2>Loading...</h2>;
@@ -17,8 +19,8 @@ const AdComponent = ({ Ad, loading }) => {
                     ? obj.images.length > 0
                       ? "http://marketplace.node.ed.asmer.org.ua/" +
                         obj.images[0].url
-                      : "https://via.placeholder.com/200x150"
-                    : "https://via.placeholder.com/200x150"
+                      : placeholder
+                    : placeholder
                 }
               />
             </div>

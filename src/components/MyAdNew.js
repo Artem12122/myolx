@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import { actionNewAd } from "../store/Thunk/actionNewAd";
 import DropzoneArr from "./DropzoneArr";
 import InputAddArr from "./inputAddArr";
+import { History } from "lucide-react";
 
 const MyAdNew = () => {
   const history = useHistory();
@@ -43,53 +44,58 @@ const MyAdNew = () => {
   };
 
   return (
-    <div className="my-ad-new">
-      <p>Вкажіть назву*</p>
-      <input
-        type="text"
-        className="title"
-        onChange={(e) => setTitle(e.target.value)}
-        value={title}
-      />
-      <p>Додайте фото</p>
-      <div className="my-ad-new-imges">
-        <DropzoneArr />
+    <>
+      <div className="goBack-my-ad-new" onClick={history.goBack}>
+        <History />
       </div>
-      <p>Додайте опис</p>
-      <textarea
-        onChange={(e) => setDescription(e.target.value)}
-        value={description}
-        name="description"
-        className="description"
-      />
-      <p>Додайте теги</p>
-      <InputAddArr
-        min={2}
-        max={14}
-        arr={tags}
-        setArr={setTags}
-        editState={false}
-        type="adress"
-        placeholder="Електроніка"
-      />
-      <p>Додайте адрессу*</p>
-      <input
-        type="adress"
-        className="adress"
-        onChange={(e) => setAdress(e.target.value)}
-        value={adress}
-      />
-      <p>Вкажіть ціну*</p>
-      <input
-        type="number"
-        className="price"
-        onChange={(e) => setPrice(e.target.value)}
-        value={price}
-      />
-      <button className="my-ad-new-btn" onClick={(e) => createAd(e)}>
-        Створити оголошення
-      </button>
-    </div>
+      <div className="my-ad-new">
+        <p>Вкажіть назву*</p>
+        <input
+          type="text"
+          className="title"
+          onChange={(e) => setTitle(e.target.value)}
+          value={title}
+        />
+        <p>Додайте фото</p>
+        <div className="my-ad-new-imges">
+          <DropzoneArr />
+        </div>
+        <p>Додайте опис</p>
+        <textarea
+          onChange={(e) => setDescription(e.target.value)}
+          value={description}
+          name="description"
+          className="description"
+        />
+        <p>Додайте теги</p>
+        <InputAddArr
+          min={2}
+          max={14}
+          arr={tags}
+          setArr={setTags}
+          editState={false}
+          type="adress"
+          placeholder="Електроніка"
+        />
+        <p>Додайте адрессу*</p>
+        <input
+          type="adress"
+          className="adress"
+          onChange={(e) => setAdress(e.target.value)}
+          value={adress}
+        />
+        <p>Вкажіть ціну*</p>
+        <input
+          type="number"
+          className="price"
+          onChange={(e) => setPrice(e.target.value)}
+          value={price}
+        />
+        <button className="my-ad-new-btn" onClick={(e) => createAd(e)}>
+          Створити оголошення
+        </button>
+      </div>
+    </>
   );
 };
 

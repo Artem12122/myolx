@@ -85,6 +85,14 @@ h2 {
   align-items: center;
   justify-content: center;
   gap: 0.8em;
+  .tags-plus-minus {
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all ease-in-out 0.2s;
+  }
+  .tags-plus-minus:hover {
+    color: #2f6e31;
+  }
 }
 .tags {
   font-size: small;
@@ -243,7 +251,15 @@ h2 {
   }
 }
 
-
+.goBack-AdOne{
+  position: absolute;
+  left: calc(4vw - 15px);
+  cursor: pointer;
+  svg{
+    width: 30px;
+    height: 30px;
+  }
+}
 .parent-AdOne {
   padding: 0 8vw 0 8vw;
   display: grid;
@@ -1069,11 +1085,26 @@ h2 {
     }
   }
 }
+.goBack-my-ad-new {
+    position: absolute;
+    left: calc(6vw - 15px);
+    cursor: pointer;
+    svg{
+      width: 30px;
+      height: 30px;
+    }
+}
 
 .perent-my-ad {
   margin: 10px 12vw;
   padding: 10px 18px;
   background-color: #F2F4F5;
+
+  .my-ad-massege {
+    font-size: large;
+    text-align: center;
+    margin-bottom: 24px;
+  }
 
   .my-ad-h4 {
     margin-bottom: 48px;

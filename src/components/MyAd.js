@@ -24,7 +24,7 @@ const MyAd = () => {
       </h4>
 
       {data.AdFind.length === 0 ? (
-        <div>Оголошень не має</div>
+        <div className="my-ad-massege">Оголошень немає</div>
       ) : (
         <AdComponent Ad={data.AdFind} loading={isLoading} />
       )}

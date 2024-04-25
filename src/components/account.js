@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionApdateUser } from "../store/Thunk/actionApdateUser";
-import { history } from "../store/api";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import authSlice from "../store/authSlice/authSlice";
 import dateCreatedAt from "../utils/date";
 import DropzoneOneFile from "./DropzoneOneFile";
 import InputAddArr from "./inputAddArr";
+import placeholder from "../images/placeholder.png";
+
 
 const Account = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
-
   const user = useSelector((state) => state.auth.userInfo);
 
   const [editState, setEditState] = useState(true);
@@ -63,7 +65,7 @@ const Account = () => {
           style={{ opacity: !editState ? 0.5 : 1 }}
           src={
             avatarVal === null
-              ? "https://via.placeholder.com/200x150"
+              ? placeholder
               : "http://marketplace.node.ed.asmer.org.ua/" + avatarVal.url
           }
         />

@@ -1,8 +1,11 @@
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useGetTagsAllQuery } from "../../store/api";
+import { CircleFadingPlus, CircleMinus, CirclePlus } from "lucide-react";
 
 const Tags = () => {
   const { isLoading, data } = useGetTagsAllQuery();
+  const [state, setState] = useState(false)
 
   if (isLoading) return <h2>Loading tags...</h2>;
 
@@ -16,8 +19,12 @@ const Tags = () => {
 
   return (
     <div className="block-tags">
-      <h2>Розділи на сервісі MyOLX</h2>
-      {tags.map((el) => (
+      <h2>Пошук по тегам на MyOLX {
+        <div className="tags-plus-minus" onClick={() => setState(!state)}>
+          {state ? <CircleMinus size={32} /> : <CirclePlus size={32} />}
+        </div>
+      }</h2>
+      { state && tags.map((el) => (
         <Link key={el} className="tags" to={`/tags/${el}`}>
           {el}
         </Link>

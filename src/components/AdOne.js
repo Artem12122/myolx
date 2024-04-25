@@ -14,8 +14,13 @@ import { useGetAdOneQuery } from "../store/api";
 import dateCreatedAt from "../utils/date";
 import AddComment from "./AddComment";
 import Comments from "./Comments";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import { History } from "lucide-react";
+import placeholder from "../images/placeholder.png";
+
 
 const AdOne = () => {
+  const history = useHistory();
   const { _id } = useParams();
   const { isFetching, data } = useGetAdOneQuery({ _id });
 
@@ -26,149 +31,152 @@ const AdOne = () => {
   const { AdFindOne } = data;
 
   return (
-    <div className="parent-AdOne">
-      <div className="AdOne-main">
-        <div className="AdOne-img-block">
-          <Swiper
-            modules={[
-              Navigation,
-              Pagination,
-              EffectCreative,
-              HashNavigation,
-              Keyboard,
-              Scrollbar,
-            ]}
-            loop={AdFindOne?.images && AdFindOne?.images.length > 1}
-            centeredSlides={true}
-            effect={"creative"}
-            creativeEffect={{
-              prev: {
-                shadow: false,
-                opacity: 0,
-                translate: [0, 0, -400],
-              },
-              next: {
-                opacity: 1,
-                translate: ["100%", 0, 0],
-              },
-            }}
-            spaceBetween={0}
-            slidesPerView={1}
-            navigation
-            pagination={{
-              type: "fraction",
-            }}
-            scrollbar={{
-              hide: true,
-            }}
-            grabCursor={true}
-            hashNavigation={{
-              watchState: true,
-            }}
-            keyboard={{
-              enabled: true,
-              onlyInViewport: true,
-              pageUpDown: true,
-            }}
-          >
-            {AdFindOne?.images !== null && AdFindOne?.images.length > 0 ? (
-              AdFindOne.images.map((image, index) => (
-                <SwiperSlide
-                  key={index}
-                  data-hash={index !== 0 ? `slide${index}` : null}
-                >
+    <>
+      <div className="goBack-AdOne" onClick={history.goBack}><History /></div>
+      <div className="parent-AdOne">
+        <div className="AdOne-main">
+          <div className="AdOne-img-block">
+            <Swiper
+              modules={[
+                Navigation,
+                Pagination,
+                EffectCreative,
+                HashNavigation,
+                Keyboard,
+                Scrollbar,
+              ]}
+              loop={AdFindOne?.images && AdFindOne?.images.length > 1}
+              centeredSlides={true}
+              effect={"creative"}
+              creativeEffect={{
+                prev: {
+                  shadow: false,
+                  opacity: 0,
+                  translate: [0, 0, -400],
+                },
+                next: {
+                  opacity: 1,
+                  translate: ["100%", 0, 0],
+                },
+              }}
+              spaceBetween={0}
+              slidesPerView={1}
+              navigation
+              pagination={{
+                type: "fraction",
+              }}
+              scrollbar={{
+                hide: true,
+              }}
+              grabCursor={true}
+              hashNavigation={{
+                watchState: true,
+              }}
+              keyboard={{
+                enabled: true,
+                onlyInViewport: true,
+                pageUpDown: true,
+              }}
+            >
+              {AdFindOne?.images !== null && AdFindOne?.images.length > 0 ? (
+                AdFindOne.images.map((image, index) => (
+                  <SwiperSlide
+                    key={index}
+                    data-hash={index !== 0 ? `slide${index}` : null}
+                  >
+                    <img
+                      src={"http://marketplace.node.ed.asmer.org.ua/" + image.url}
+                      alt={image.text}
+                    />
+                  </SwiperSlide>
+                ))
+              ) : (
+                <SwiperSlide>
                   <img
-                    src={"http://marketplace.node.ed.asmer.org.ua/" + image.url}
-                    alt={image.text}
+                    src={placeholder}
+                    alt="Зображення відсутнє"
                   />
                 </SwiperSlide>
-              ))
-            ) : (
-              <SwiperSlide>
-                <img
-                  src="https://via.placeholder.com/200x150"
-                  alt="Зображення відсутнє"
-                />
-              </SwiperSlide>
-            )}
-          </Swiper>
-        </div>
-        <div className="AdOne-description">
-          <div>
-            <h4 className="AdOne-description-title">Опис</h4>
-            <p>{AdFindOne.description}</p>
+              )}
+            </Swiper>
           </div>
-          <div className="block-tags-Ad">
-            {AdFindOne.tags &&
-              AdFindOne.tags.length > 0 &&
-              AdFindOne.tags.map((el, i) => (
-                <Link className="tags-Ad" key={el} to={`/tags/${el}`}>
-                  {el} {AdFindOne.tags.length !== i + 1 && ","}
-                </Link>
-              ))}
-          </div>
-        </div>
-
-        <div className="AdOne-comments">
-          <h4>Коментарі</h4>
-          <AddComment _id={_id} />
-          <div className="block-comments">
-            {AdFindOne.comments &&
-              AdFindOne.comments.length > 0 &&
-              AdFindOne.comments
-                .slice()
-                .reverse()
-                .map((el) => <Comments key={el._id} objComent={el} />)}
-          </div>
-        </div>
-      </div>
-
-      <div className="AdOne-aside">
-        <div className="AdOne-title">
-          <div className="AdOne-title-time">
-            Опубліковано {dateCreatedAt(AdFindOne.createdAt)}
-          </div>
-          <h4>{AdFindOne.title}</h4>
-          <div className="AdOne-title-price">{AdFindOne.price} грн.</div>
-          <Link to="/message">
-            <button className="AdOne-title-message">Повідомлення</button>
-          </Link>
-        </div>
-
-        <div className="AdOne-owner">
-          <h4 className="AdOne-owner-title">Користувач</h4>
-          <div className="owner">
-            {AdFindOne.owner.avatar === null ? (
-              <div className="icon-user" />
-            ) : (
-              <img
-                src={
-                  "http://marketplace.node.ed.asmer.org.ua/" +
-                  AdFindOne.owner.avatar.url
-                }
-              />
-            )}
-            <p>{AdFindOne.owner.login}</p>
-            <div className="owner-time">
-              На MyOLX з {dateCreatedAt(AdFindOne.owner.createdAt)}
+          <div className="AdOne-description">
+            <div>
+              <h4 className="AdOne-description-title">Опис</h4>
+              <p>{AdFindOne.description}</p>
+            </div>
+            <div className="block-tags-Ad">
+              {AdFindOne.tags &&
+                AdFindOne.tags.length > 0 &&
+                AdFindOne.tags.map((el, i) => (
+                  <Link className="tags-Ad" key={el} to={`/tags/${el}`}>
+                    {el} {AdFindOne.tags.length !== i + 1 && ","}
+                  </Link>
+                ))}
             </div>
           </div>
-          <div className="owner-adress">
-            {AdFindOne.address !== null && (
-              <>
-                {AdFindOne.address}
-                <span className="icon-location2"></span>
-              </>
-            )}
+
+          <div className="AdOne-comments">
+            <h4>Коментарі</h4>
+            <AddComment _id={_id} />
+            <div className="block-comments">
+              {AdFindOne.comments &&
+                AdFindOne.comments.length > 0 &&
+                AdFindOne.comments
+                  .slice()
+                  .reverse()
+                  .map((el) => <Comments key={el._id} objComent={el} />)}
+            </div>
           </div>
-          <div className="owner-all-ad">
-            <Link to={`/Ad/owner/${AdFindOne.owner._id}`}>
-              Інші оголошення автора <span className="icon-redo2"></span>
+        </div>
+
+        <div className="AdOne-aside">
+          <div className="AdOne-title">
+            <div className="AdOne-title-time">
+              Опубліковано {dateCreatedAt(AdFindOne.createdAt)}
+            </div>
+            <h4>{AdFindOne.title}</h4>
+            <div className="AdOne-title-price">{AdFindOne.price} грн.</div>
+            <Link to="/message">
+              <button className="AdOne-title-message">Повідомлення</button>
             </Link>
+          </div>
+
+          <div className="AdOne-owner">
+            <h4 className="AdOne-owner-title">Користувач</h4>
+            <div className="owner">
+              {AdFindOne.owner.avatar === null ? (
+                <div className="icon-user" />
+              ) : (
+                <img
+                  src={
+                    "http://marketplace.node.ed.asmer.org.ua/" +
+                    AdFindOne.owner.avatar.url
+                  }
+                />
+              )}
+              <p>{AdFindOne.owner.login}</p>
+              <div className="owner-time">
+                На MyOLX з {dateCreatedAt(AdFindOne.owner.createdAt)}
+              </div>
+            </div>
+            <div className="owner-adress">
+              {AdFindOne.address !== null && (
+                <>
+                  {AdFindOne.address}
+                  <span className="icon-location2"></span>
+                </>
+              )}
+            </div>
+            <div className="owner-all-ad">
+              <Link to={`/Ad/owner/${AdFindOne.owner._id}`}>
+                Інші оголошення автора <span className="icon-redo2"></span>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
