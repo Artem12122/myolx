@@ -1,9 +1,9 @@
-import React, { useState, useParams } from "react";
+import React, { useState } from "react";
 import { useAddCommentMutation } from "../store/api";
 
-const AddComment = ({_id, setLoading}) => {
+const AddComment = ({ _id, setLoading }) => {
   const [text, setText] = useState("");
-  const [loginQuery, {isLoading, data}] = useAddCommentMutation()
+  const [loginQuery, { isLoading, data }] = useAddCommentMutation();
 
   return (
     <form className="add-comment">
@@ -15,8 +15,10 @@ const AddComment = ({_id, setLoading}) => {
       ></input>
       <button
         type="submit"
-        onClick={() => {
-          loginQuery({_id, text})
+        onClick={(e) => {
+          e.preventDefault();
+
+          loginQuery({ _id, text });
           setText("");
         }}
       >

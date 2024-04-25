@@ -923,3 +923,181 @@ h2 {
     background-color: #404551;
   }
 }
+
+
+.my-ad-new {
+  background-color: #F2F4F5;
+  margin-left: 16vw;
+  margin-right: 16vw;
+  padding: 16px 24px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  p {
+    font-weight: 400;
+    padding-top: 20px;
+    border-top: 2px solid white;
+  }
+
+  input, textarea {
+    box-sizing: border-box;
+    width: 46vw;
+    height: 44px;
+    border-radius: 12px;
+    font-weight: 500;
+    color: #1d1f23;
+    border-color: #404551;
+    margin-right: 12px;
+    padding: 2px 10px;
+  }
+
+  textarea {
+    height: 120px;
+    max-height: 240px;
+  }
+
+  .phonebook {
+    .input-block-account {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+
+      input {
+        width: 18vw;
+      }
+    }
+    p {
+      border: none;
+    } 
+  }
+
+  .input-btn-edit, .my-ad-new-btn, .input-btn-del {
+    box-sizing: border-box;
+    min-width: 100px;
+    height: 42px;
+    border-radius: 12px;
+    font-weight: 500;
+    color: #1d1f23;
+    border-color: #404551;
+    margin-right: 15px;
+    padding: 2px 5px;
+  }
+  .input-btn-del {
+    min-width: 60px;
+  }
+
+  .input-btn-edit:hover, .input-btn-del:hover {
+    border: 3px solid #1d1f23;
+    background-color: white;
+  }
+
+  .my-ad-new-btn {
+    margin-top: 30px;
+    width: 260px;
+    background-color: #419644;
+    color: aliceblue;
+    align-self: flex-end;
+  }
+
+  .my-ad-new-btn:hover {
+    border: 3px solid #1d1f23;
+  }
+
+
+  .container {
+    width: 100%;
+    height: 414px;
+
+    .dropzone {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+
+
+      .dropzone-img, div {
+        position: relative;
+        width: calc(25% - 10.5px);
+        height: 200px;
+
+        img {
+          min-width: 100%;
+          min-height: 100%;
+          max-width: 100%;
+          max-height: 100%;
+          transition: all ease-in-out 0.2s;
+        }
+
+        button {
+          padding: 0;
+          position: absolute;
+          top: calc(50% - 28px);
+          left: calc(50% - 28px);
+          opacity: 0;
+          border-radius: 50%;
+          min-width: 56px;
+          min-height: 56px;
+          transition: all ease-in-out 0.2s;
+        }
+
+        p {
+          margin: 0;
+          padding: 0;
+          position: absolute;
+          top: calc(50% - 10px);
+          left: calc(50% - 90px);
+          width: 180px;
+          height: 20px;
+          transition: all linear 0.1s;
+          border: none;
+        }
+
+      }
+      .dropzone-img:hover button {
+        opacity: 1;
+      }
+
+      .dropzone-img:hover img {
+        filter: brightness(40%);
+      }
+
+      .dropzone-add-img:hover p {
+        border-bottom: 3px solid #1d1f23;
+      }
+
+    }
+  }
+}
+
+.perent-my-ad {
+  margin: 10px 12vw;
+  padding: 10px 18px;
+  background-color: #F2F4F5;
+
+  .my-ad-h4 {
+    margin-bottom: 48px;
+    margin-right: 10px;
+    text-align: end;
+
+    .my-ad-link{
+      padding: 10px 12px;
+      text-decoration: none;
+      color: #419644;
+      font-size: 22px;
+      transition: all ease-in-out 0.2s;
+      border-radius: 50px;
+      border: 2px solid white;
+      background-color: white;
+    }
+    .my-ad-link:hover {
+      color: #2f6e31;
+      border: 2px solid #2f6e31;
+    }
+  }
+
+  .block-Ad {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+  }
+}

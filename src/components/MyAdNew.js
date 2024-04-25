@@ -1,20 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
-import {
-  Router,
-  Route,
-  Link,
-  NavLink,
-  Redirect,
-  useParams,
-  Switch,
-} from "react-router-dom";
-import { useCreateNewAdMutation, useGetAdMyQuery } from "../store/api";
-import { useSelector } from "react-redux";
-import Dropzone from "./DropzoneOneFile";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import { actionNewAd } from "../store/Thunk/actionNewAd";
+import DropzoneArr from "./DropzoneArr";
 import InputAddArr from "./inputAddArr";
 
 const MyAdNew = () => {
-  const user = useSelector((state) => state.auth.userInfo);
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const imagesState = useSelector((state) => state.feed.payloadImages);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -22,26 +16,34 @@ const MyAdNew = () => {
   const [adress, setAdress] = useState("");
   const [price, setPrice] = useState("");
 
-  const [loginQuery, { isLoading, data }] = useCreateNewAdMutation();
+  const createAd = async (e) => {
+    e.preventDefault();
 
-  const createAd = () => {
+    if (title.length < 5 && price.length < 1 && adress.length < 2) {
+      alert("Заповніть поля з зірочкою");
+      return;
+    }
+
+    const images = imagesState.map((el) => {
+      const { _id } = el;
+      return { _id };
+    });
+
     const newAd = {
-      // images: [],
+      images: images,
       title: title,
       description: description,
       tags: tags,
       address: adress,
       price: +price,
     };
-    loginQuery(newAd);
-    console.log(newAd);
-  };
+    const _id = await dispatch(actionNewAd(newAd));
 
-  //   console.log(user ,title, description, tags, adress);
+    history.push(`/Ad/${_id}`);
+  };
 
   return (
     <div className="my-ad-new">
-      <Dropzone />
       <p>Вкажіть назву*</p>
       <input
         type="text"
@@ -49,6 +51,10 @@ const MyAdNew = () => {
         onChange={(e) => setTitle(e.target.value)}
         value={title}
       />
+      <p>Додайте фото</p>
+      <div className="my-ad-new-imges">
+        <DropzoneArr />
+      </div>
       <p>Додайте опис</p>
       <textarea
         onChange={(e) => setDescription(e.target.value)}
@@ -58,6 +64,8 @@ const MyAdNew = () => {
       />
       <p>Додайте теги</p>
       <InputAddArr
+        min={2}
+        max={14}
         arr={tags}
         setArr={setTags}
         editState={false}
@@ -78,7 +86,9 @@ const MyAdNew = () => {
         onChange={(e) => setPrice(e.target.value)}
         value={price}
       />
-      <button onClick={createAd}>Створити оголошення</button>
+      <button className="my-ad-new-btn" onClick={(e) => createAd(e)}>
+        Створити оголошення
+      </button>
     </div>
   );
 };

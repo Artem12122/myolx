@@ -8,12 +8,10 @@ export const api = createApi({
   baseQuery: graphqlRequestBaseQuery({
     url: "http://marketplace.node.ed.asmer.org.ua/graphql",
     prepareHeaders(headers, { getState }) {
-      const { token } = getState().auth; //отримуємо токен
+      const { token } = getState().auth;
       if (token) {
-        //якщо ми залогінени
-        headers.set("Authorization", "Bearer " + token); //додаємо токен до заголовків
+        headers.set("Authorization", "Bearer " + token);
       }
-      // console.log(getState().auth)
       return headers;
     },
   }),
@@ -41,8 +39,8 @@ export const api = createApi({
     }),
     getAdMy: builder.query({
       query: (_id) => ({
-        document: `query myAd($count: String){
-                    AdFind(query: $count) {
+        document: `query myAd($owner: String){
+                    AdFind(query: $owner) {
                       _id
                       title
                       tags
@@ -53,7 +51,10 @@ export const api = createApi({
                     }
                   }`,
         variables: {
-          count: JSON.stringify([{ _id: _id }, { sort: [{ _id: -1 }] }]),
+          owner: JSON.stringify([
+            { ___owner: {"$in": [_id] } },
+            { sort: [{ _id: -1 }] }
+          ]),
         },
       }),
     }),

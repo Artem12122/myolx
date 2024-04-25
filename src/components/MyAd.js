@@ -1,15 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
-import {
-  Router,
-  Route,
-  Link,
-  NavLink,
-  Redirect,
-  useParams,
-  Switch,
-} from "react-router-dom";
-import { useGetAdMyQuery } from "../store/api";
+import React from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { useGetAdMyQuery } from "../store/api";
+import AdComponent from "./Ad";
 
 const MyAd = () => {
   const user = useSelector((state) => state.auth.userInfo);
@@ -20,16 +13,21 @@ const MyAd = () => {
 
   if (isLoading) return <h2>Loading...</h2>;
 
-  console.log(data.AdFind.length);
-
   return (
-    <div className="patent-my-ad">
+    <div className="perent-my-ad">
       <h2>Мої оголошення</h2>
-      <Link to="/My/Ad/new">
-        <h4>Створити нове оголошення</h4>
-      </Link>
-      
-      {data.AdFind.length === 0 ? <div>Оголошень не має</div> : <div>gdfhg</div>}
+
+      <h4 className="my-ad-h4">
+        <Link className="my-ad-link" to="/My/Ad/new">
+          Створити нове оголошення
+        </Link>
+      </h4>
+
+      {data.AdFind.length === 0 ? (
+        <div>Оголошень не має</div>
+      ) : (
+        <AdComponent Ad={data.AdFind} loading={isLoading} />
+      )}
     </div>
   );
 };

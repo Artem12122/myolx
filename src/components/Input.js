@@ -1,6 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-const Input = ({ arr, setArr, index, editState, setErrorMassage, ...props }) => {
+const Input = ({
+  min = 1,
+  max = 39,
+  arr,
+  setArr,
+  index,
+  editState,
+  setErrorMassage,
+  ...props
+}) => {
   const [inputValue, setInputValue] = useState((arr && arr[index]) || "");
   const [editStateInput, setEditStateInput] = useState(
     arr && arr[index] ? true : false
@@ -9,7 +18,7 @@ const Input = ({ arr, setArr, index, editState, setErrorMassage, ...props }) => 
   const [btn, setBtn] = useState(false);
 
   useEffect(() => {
-    setInputValue((arr && arr[index]) || "")
+    setInputValue((arr && arr[index]) || "");
     setErrorMassage("");
 
     setNoneInput("");
@@ -20,8 +29,8 @@ const Input = ({ arr, setArr, index, editState, setErrorMassage, ...props }) => 
 
   const validateText = (e) => {
     const newValue = e.target.value;
-    if (newValue.length > 3 && newValue.length < 13) {
-      if ( !arr || !arr.filter((e, i) => i !== index).includes(newValue)) {
+    if (newValue.length > min && newValue.length < max) {
+      if (!arr || !arr.filter((e, i) => i !== index).includes(newValue)) {
         setBtn(false);
         setErrorMassage("");
         setInputValue(newValue);
@@ -32,9 +41,11 @@ const Input = ({ arr, setArr, index, editState, setErrorMassage, ...props }) => 
     } else {
       setBtn(true);
       newValue.length < 13
-        ? setErrorMassage("Не меньше 4 символів")
-        : setErrorMassage("Не більше 12 символів");
+        ? setErrorMassage(`Не меньше ${min + 1} символів`)
+        : setErrorMassage(`Не більше ${max + 1} символів`);
     }
+
+    newValue.length === 0 && setErrorMassage("");
   };
 
   const addNumber = () => {
@@ -62,7 +73,7 @@ const Input = ({ arr, setArr, index, editState, setErrorMassage, ...props }) => 
         {...props}
       />
       {!editState && (
-        <button  className="input-btn-edit" onClick={addNumber} disabled={btn}>
+        <button className="input-btn-edit" onClick={addNumber} disabled={btn}>
           {editStateInput ? "Змінити" : "Додати"}
         </button>
       )}

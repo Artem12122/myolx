@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useGetAllAdCountQuery } from "../store/api";
 import { useDispatch, useSelector } from "react-redux";
 import AdComponent from "./Ad";

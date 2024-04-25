@@ -3,7 +3,9 @@ import {useDropzone} from 'react-dropzone';
 import uploadFile from '../utils/uploadFile';
 
 function DropzoneOneFile({setAvatar}) {
-  const {acceptedFiles, getRootProps, getInputProps} = useDropzone();
+  const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
+    maxFiles: 1,
+  });
 
     useEffect(() => {
         if (acceptedFiles[0]) {

@@ -1,27 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
+import { Link, useParams } from "react-router-dom";
+import "swiper/css/bundle";
 import {
-  Router,
-  Route,
-  Link,
-  Redirect,
-  useParams,
-  Switch,
-} from "react-router-dom";
-import Comments from "./Comments";
-import AddComment from "./AddComment";
-import dateCreatedAt from "../utils/date";
-import { useGetAdOneQuery } from "../store/api";
-import { Swiper, SwiperSlide } from "swiper/react";
-import {
-  Navigation,
-  Pagination,
   EffectCreative,
   HashNavigation,
   Keyboard,
+  Navigation,
+  Pagination,
   Scrollbar,
 } from "swiper/modules";
-
-import "swiper/css/bundle";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { useGetAdOneQuery } from "../store/api";
+import dateCreatedAt from "../utils/date";
+import AddComment from "./AddComment";
+import Comments from "./Comments";
 
 const AdOne = () => {
   const { _id } = useParams();
@@ -46,7 +38,7 @@ const AdOne = () => {
               Keyboard,
               Scrollbar,
             ]}
-            loop={true}
+            loop={AdFindOne?.images && AdFindOne?.images.length > 1}
             centeredSlides={true}
             effect={"creative"}
             creativeEffect={{
@@ -81,7 +73,10 @@ const AdOne = () => {
           >
             {AdFindOne?.images !== null && AdFindOne?.images.length > 0 ? (
               AdFindOne.images.map((image, index) => (
-                <SwiperSlide key={index} data-hash={index !== 0 ? `slide${index}` : null} >
+                <SwiperSlide
+                  key={index}
+                  data-hash={index !== 0 ? `slide${index}` : null}
+                >
                   <img
                     src={"http://marketplace.node.ed.asmer.org.ua/" + image.url}
                     alt={image.text}
@@ -167,9 +162,9 @@ const AdOne = () => {
             )}
           </div>
           <div className="owner-all-ad">
-            <a href={`/Ad/${AdFindOne._id}`}>
+            <Link to={`/Ad/owner/${AdFindOne.owner._id}`}>
               Інші оголошення автора <span className="icon-redo2"></span>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

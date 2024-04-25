@@ -24,8 +24,4 @@ const store = configureStore({
 })
 
 export const persistor = persistStore(store)
-
-// console.log(api)
-// console.log(store)
-
 export default store

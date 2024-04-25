@@ -7,7 +7,12 @@ const Comments = ({ objComent }) => {
         {objComent.owner.avatar === null ? (
           <div className="icon-user" />
         ) : (
-          <img src={"http://marketplace.node.ed.asmer.org.ua/" + objComent.owner.avatar.url} />
+          <img
+            src={
+              "http://marketplace.node.ed.asmer.org.ua/" +
+              objComent.owner.avatar.url
+            }
+          />
         )}
         <p>{objComent.owner.login}</p>
         <div className="comments-time-Ad">
@@ -23,5 +28,3 @@ const Comments = ({ objComent }) => {
 };
 
 export default Comments;
-
-

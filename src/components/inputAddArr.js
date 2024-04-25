@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
-import Input from "./Input";
-import { v4 as uuidv4 } from "uuid";
 import { Delete } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import Input from "./Input";
 
 const InputAddArr = ({ arr, setArr, editState, ...props }) => {
   const [phoneKeys, setPhoneKeys] = useState([uuidv4()]);

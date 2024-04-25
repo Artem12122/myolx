@@ -1,11 +1,11 @@
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { actionApdateUser } from "../store/Thunk/actionApdateUser";
+import { history } from "../store/api";
 import authSlice from "../store/authSlice/authSlice";
 import dateCreatedAt from "../utils/date";
-import React, { useState, useEffect, useRef } from "react";
-import { actionApdateUser } from "../store/Thunk/actionApdateUser";
-import InputAddArr from "./inputAddArr";
-import { history } from "../store/api";
 import DropzoneOneFile from "./DropzoneOneFile";
+import InputAddArr from "./inputAddArr";
 
 const Account = () => {
   const dispatch = useDispatch();
@@ -62,9 +62,9 @@ const Account = () => {
           className="account-img"
           style={{ opacity: !editState ? 0.5 : 1 }}
           src={
-            user.avatar === null
+            avatarVal === null
               ? "https://via.placeholder.com/200x150"
-              : "http://marketplace.node.ed.asmer.org.ua/" + user.avatar.url
+              : "http://marketplace.node.ed.asmer.org.ua/" + avatarVal.url
           }
         />
       </div>
@@ -96,6 +96,8 @@ const Account = () => {
       <div className="account-phones">
         <h5>Номера телефону</h5>
         <InputAddArr
+          min={4}
+          max={12}
           arr={phonesVal}
           setArr={setPhonesVal}
           editState={editState}
@@ -109,6 +111,8 @@ const Account = () => {
       <div className="account-addresses">
         <h5>Адрасса</h5>
         <InputAddArr
+          min={2}
+          max={24}
           arr={addressesVal}
           setArr={setaddressesVal}
           editState={editState}

@@ -1,15 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
-import {
-  Router,
-  Route,
-  Link,
-  Redirect,
-  useParams,
-  Switch,
-} from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { actionFullRegister } from "../store/Thunk/actionFullRegister";
 import store from "../store";
+import { actionFullRegister } from "../store/Thunk/actionFullRegister";
 
 const Registration = () => {
   const [login, setLogin] = useState("");

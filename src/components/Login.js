@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
-import {Link } from "react-router-dom"
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import store from "../store";
 import { actionFullLogin } from "../store/Thunk/actionFullLogin";
-
 
 const Login = () => {
   const [login, setLogin] = useState("");
@@ -15,16 +14,15 @@ const Login = () => {
 
   const loginFunk = async (e) => {
     e.preventDefault();
-    setText("Завантаження")
-    
-    await dispatch(actionFullLogin(login, password))
-    if (store.getState().auth.token !== null) {
-        setText("Вхід виконано успішно")
-      } else {
-        setText("Невірний логін або пароль")
-      }
-  }
+    setText("Завантаження");
 
+    await dispatch(actionFullLogin(login, password));
+    if (store.getState().auth.token !== null) {
+      setText("Вхід виконано успішно");
+    } else {
+      setText("Невірний логін або пароль");
+    }
+  };
 
   return (
     <form className="login-form">

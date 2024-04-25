@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import { useGetTagsAllQuery } from "../../store/api";
 
 const Tags = () => {
-  const {isLoading, data} = useGetTagsAllQuery()
+  const { isLoading, data } = useGetTagsAllQuery();
 
-  if (isLoading) return <h2>Loading tags...</h2>
+  if (isLoading) return <h2>Loading tags...</h2>;
 
   const tags = [];
 
