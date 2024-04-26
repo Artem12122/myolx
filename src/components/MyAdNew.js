@@ -4,23 +4,23 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import { actionNewAd } from "../store/Thunk/actionNewAd";
 import DropzoneArr from "./DropzoneArr";
 import InputAddArr from "./inputAddArr";
-import { History } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
-const MyAdNew = () => {
+const MyAdNew = ({ _id, titleAD="", descriptionAd="", tagsAd=[], addressAd="", priceAd=0}) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const imagesState = useSelector((state) => state.feed.payloadImages);
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [tags, setTags] = useState([]);
-  const [adress, setAdress] = useState("");
-  const [price, setPrice] = useState("");
+  const [title, setTitle] = useState(titleAD);
+  const [description, setDescription] = useState(descriptionAd);
+  const [tags, setTags] = useState(tagsAd);
+  const [address, setAdress] = useState(addressAd);
+  const [price, setPrice] = useState(priceAd);
 
   const createAd = async (e) => {
     e.preventDefault();
 
-    if (title.length < 5 && price.length < 1 && adress.length < 2) {
+    if (title.length < 5 || price.length < 1 || address.length < 2) {
       alert("Заповніть поля з зірочкою");
       return;
     }
@@ -35,18 +35,20 @@ const MyAdNew = () => {
       title: title,
       description: description,
       tags: tags,
-      address: adress,
+      address: address,
       price: +price,
     };
-    const _id = await dispatch(actionNewAd(newAd));
+    _id && (newAd._id = _id)
+    
+    const _idNew = await dispatch(actionNewAd(newAd));
 
-    history.push(`/Ad/${_id}`);
+    history.push(`/Ad/${_idNew}`);
   };
 
   return (
     <>
       <div className="goBack-my-ad-new" onClick={history.goBack}>
-        <History />
+        <ArrowLeft size={32} />
       </div>
       <div className="my-ad-new">
         <p>Вкажіть назву*</p>
@@ -79,10 +81,10 @@ const MyAdNew = () => {
         />
         <p>Додайте адрессу*</p>
         <input
-          type="adress"
+          type="text"
           className="adress"
           onChange={(e) => setAdress(e.target.value)}
-          value={adress}
+          value={address}
         />
         <p>Вкажіть ціну*</p>
         <input

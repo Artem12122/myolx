@@ -4,7 +4,7 @@ import createHistory from "history/createBrowserHistory";
 import authSlice from "../authSlice/authSlice";
 
 export const api = createApi({
-  tagTypes: ["User", "Coment"],
+  tagTypes: ["User", "Coment", "Ad"],
   baseQuery: graphqlRequestBaseQuery({
     url: "http://marketplace.node.ed.asmer.org.ua/graphql",
     prepareHeaders(headers, { getState }) {
@@ -36,6 +36,9 @@ export const api = createApi({
           ]),
         },
       }),
+      providesTags: (result, error, { _id }) => {
+        return [{ type: "Ad", id: _id }];
+      },
     }),
     getAdMy: builder.query({
       query: (_id) => ({
@@ -57,6 +60,9 @@ export const api = createApi({
           ]),
         },
       }),
+      providesTags: (result, error, { _id }) => {
+        return [{ type: "Ad", id: _id }];
+      },
     }),
     createNewAd: builder.mutation({
       query: (newAd) => ({
@@ -70,6 +76,9 @@ export const api = createApi({
           newAd
         }
       }),
+      invalidatesTags: (result, error, arg) => [
+        { type: "Ad", id: arg._id },
+      ],
     }),
     getAllAdCount: builder.query({
       query: () => ({
@@ -170,6 +179,9 @@ export const api = createApi({
       }),
       providesTags: (result, error, { _id }) => {
         return [{ type: "Comment", id: _id }];
+      },
+      providesTags: (result, error, { _id }) => {
+        return [{ type: "Ad", id: _id }];
       },
     }),
     addComment: builder.mutation({

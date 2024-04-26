@@ -6,8 +6,9 @@ export const actionNewAd = (newAd) => async (dispatch) => {
   console.log(ad);
   if (ad.data) {
     await dispatch(feedSlice.actions.clearData());
-    const { _id } = ad.data.AdUpsert;
+    await dispatch(feedSlice.actions.clearImages());
 
+    const { _id } = ad.data.AdUpsert;
     return _id;
   }
 };

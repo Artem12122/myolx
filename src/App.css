@@ -253,12 +253,8 @@ h2 {
 
 .goBack-AdOne{
   position: absolute;
-  left: calc(4vw - 15px);
+  left: calc(4vw - 16px);
   cursor: pointer;
-  svg{
-    width: 30px;
-    height: 30px;
-  }
 }
 .parent-AdOne {
   padding: 0 8vw 0 8vw;
@@ -471,7 +467,6 @@ h2 {
   margin-bottom: 20px;
 
   padding: 14px;
-  /* border: 1px solid #1d1f23; */
   .AdOne-title-price {
     font-weight: 600;
     font-size: large;
@@ -481,7 +476,7 @@ h2 {
   .AdOne-title-add, .AdOne-title-message {
     width: 100%;
     height: 52px;
-    font-weight: 500;
+    font-weight: 600;
     font-size: large;
     border: 2px solid #1d1f23;
     border-radius: 5px;
@@ -509,6 +504,7 @@ h2 {
 
 .AdOne-owner {
   background-color: #F2F4F5;
+  margin-bottom: 20px;
 
   padding: 14px;
   
@@ -572,6 +568,45 @@ h2 {
     a:hover {
       color: #003585;
     }
+  }
+}
+
+.AdOne-edit-del {
+  background-color: #F2F4F5;
+
+  padding: 14px;
+
+
+  .AdOne-edit, .AdOne-del {
+    width: 64%;
+    height: 52px;
+    font-weight: 600;
+    font-size: large;
+    border: 2px solid #1d1f23;
+    border-radius: 5px;
+    transition: all ease-in-out 0.2s;
+    cursor: pointer;
+
+    margin: 14px 0;
+    background-color: #404551;
+    color: #74d2f8;
+  }
+  .AdOne-del {
+    background-color: crimson;
+    border: white;
+    color: white;
+    margin-left: 2%;
+    width: 34%;
+  }
+
+  .AdOne-edit:hover, .AdOne-del:hover {
+    background-color: white;
+    color: #1d1f23;
+    border: 5px solid #1d1f23;
+  }
+
+  .AdOne-del:hover {
+    color: crimson;
   }
 }
 
@@ -1043,6 +1078,7 @@ h2 {
           max-width: 100%;
           max-height: 100%;
           transition: all ease-in-out 0.2s;
+          object-fit: cover;
         }
 
         button {

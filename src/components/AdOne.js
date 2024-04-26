@@ -15,11 +15,14 @@ import dateCreatedAt from "../utils/date";
 import AddComment from "./AddComment";
 import Comments from "./Comments";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
-import { History } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import placeholder from "../images/placeholder.png";
+import { useDispatch, useSelector } from "react-redux";
 
 
 const AdOne = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.userInfo);
   const history = useHistory();
   const { _id } = useParams();
   const { isFetching, data } = useGetAdOneQuery({ _id });
@@ -29,10 +32,13 @@ const AdOne = () => {
   if (!data) return <h2>Ви не увійшли в акаунту</h2>;
 
   const { AdFindOne } = data;
+  const _idUser = user._id
+
+  console.log(AdFindOne)
 
   return (
     <>
-      <div className="goBack-AdOne" onClick={history.goBack}><History /></div>
+      <div className="goBack-AdOne" onClick={history.goBack}><ArrowLeft size={32} /></div>
       <div className="parent-AdOne">
         <div className="AdOne-main">
           <div className="AdOne-img-block">
@@ -70,7 +76,7 @@ const AdOne = () => {
               }}
               grabCursor={true}
               hashNavigation={{
-                watchState: true,
+                watchState: false,
               }}
               keyboard={{
                 enabled: true,
@@ -82,7 +88,6 @@ const AdOne = () => {
                 AdFindOne.images.map((image, index) => (
                   <SwiperSlide
                     key={index}
-                    data-hash={index !== 0 ? `slide${index}` : null}
                   >
                     <img
                       src={"http://marketplace.node.ed.asmer.org.ua/" + image.url}
@@ -174,6 +179,14 @@ const AdOne = () => {
               </Link>
             </div>
           </div>
+          { _idUser === AdFindOne.owner._id &&  
+            <div className="AdOne-edit-del">
+              <Link to={`/My/Ad/new/${_id}`}>
+                <button className="AdOne-edit">Редагувати</button>
+              </Link>
+              <button className="AdOne-del">Видалити</button>
+            </div>
+          }
         </div>
       </div>
     </>

@@ -9,9 +9,6 @@ const AdComponentOwner = () => {
 
   if (isLoading) return <h2>Loading..</h2>;
 
-  console.log(data, _id);
-  console.log("data, _id");
-
   return (
     <div className="parent-Ad">
       <h2>Оголошення</h2>

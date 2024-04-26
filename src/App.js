@@ -17,6 +17,7 @@ import Tags from "./components/Tags";
 import Account from "./components/account";
 import store, { persistor } from "./store";
 import { history } from "./store/api";
+import EditAd from "./components/EditAd";
 
 // store.subscribe(() => console.log(store.getState()))
 
@@ -41,6 +42,7 @@ function App() {
 
             <Route path="/My/Ad" component={MyAd} exact />
             <Route path="/My/Ad/new" component={MyAdNew} exact />
+            <Route path="/My/Ad/new/:_id" component={EditAd} exact />
 
             <Route path="/Ad/owner/:_id" component={AdComponentOwner} />
           </main>
