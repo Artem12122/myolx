@@ -34,8 +34,6 @@ const AdOne = () => {
   const { AdFindOne } = data;
   const _idUser = user._id
 
-  console.log(AdFindOne)
-
   return (
     <>
       <div className="goBack-AdOne" onClick={history.goBack}><ArrowLeft size={32} /></div>
@@ -184,7 +182,7 @@ const AdOne = () => {
               <Link to={`/My/Ad/new/${_id}`}>
                 <button className="AdOne-edit">Редагувати</button>
               </Link>
-              <button className="AdOne-del">Видалити</button>
+              {/* <button className="AdOne-del">Видалити</button> */}
             </div>
           }
         </div>
