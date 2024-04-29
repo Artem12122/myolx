@@ -6,55 +6,70 @@ import MessageComponent from "./MessageComponent";
 import { CircleUserRound } from "lucide-react";
 import MessageInput from "./MessageInput";
 
-
 const Message = () => {
-    const dispatch = useDispatch()
-    const chats = useSelector((state) => state.message.payloadChats);
-    const _id = useSelector((state) => state.auth.userInfo?._id);
+  const dispatch = useDispatch();
+  const chats = useSelector((state) => state.message.payloadChats);
+  const _id = useSelector((state) => state.auth.userInfo?._id);
 
-    useEffect(() => {
-        dispatch(actionMessage())
-        const intervalId = setInterval(() => dispatch(actionMessage()), 1000)
+  useEffect(() => {
+    dispatch(actionMessage());
+    const intervalId = setInterval(() => dispatch(actionMessage()), 1000);
 
-        return () => clearInterval(intervalId)
-    }, [])
+    return () => clearInterval(intervalId);
+  }, []);
 
-    if (!_id) return <h2>Ви не увійшли в акаунт</h2>
+  if (!_id) return <h2>Ви не увійшли в акаунт</h2>;
 
-    const chatsId = Object.keys(chats)
+  const chatsId = Object.keys(chats);
 
-    return (
-        <div className="parent-message">
+//   if (chatsId.length < 1) return <h2>У вас немаєчатів</h2>
 
-            <div className="message-aside">
-                {chatsId.map((chatUrl) => (
-                    <Link className="message-title" key={chatUrl} to={`/message/${chatUrl}`}>
-                        {
-                            chats[chatUrl][0].owner._id !== _id ? (chats[chatUrl][0].owner.avatar === null ? (
-                                <CircleUserRound size={36} />
-                            ) : (
-                                <img
-                                    src={ "http://marketplace.node.ed.asmer.org.ua/" + chats[chatUrl][0].owner.avatar.url}
-                                />
-                            )) : (chats[chatUrl][0].to.avatar === null ? (
-                                <CircleUserRound size={36} />
-                            ) : (
-                                <img
-                                    src={ "http://marketplace.node.ed.asmer.org.ua/" + chats[chatUrl][0].to.avatar.url}
-                                />
-                            ))
-                        }
-                        <p>чат c {chats[chatUrl][0].owner._id !== _id ? chats[chatUrl][0].owner.login : chats[chatUrl][0].to.login}</p>
-                    </Link>
-                ))}
-            </div>
-            <div className="message-main">
-                {/* <Route path="/message" component={} exact /> */}
-                <Route path="/message/:chat_id" component={MessageComponent} exact />
-            </div>
-            <Route path="/message/:chat_id" component={MessageInput} />
-        </div>
-    )
-}
+  return (
+    <div className="parent-message">
+      <div className="message-aside">
+        {chatsId.map((chatUrl) => (
+          <Link
+            className="message-title"
+            key={chatUrl}
+            to={`/message/${chatUrl}`}
+          >
+            {chats[chatUrl][0].owner._id !== _id ? (
+              chats[chatUrl][0].owner.avatar === null ? (
+                <CircleUserRound size={36} />
+              ) : (
+                <img
+                  src={
+                    "http://marketplace.node.ed.asmer.org.ua/" +
+                    chats[chatUrl][0].owner.avatar.url
+                  }
+                />
+              )
+            ) : chats[chatUrl][0].to.avatar === null ? (
+              <CircleUserRound size={36} />
+            ) : (
+              <img
+                src={
+                  "http://marketplace.node.ed.asmer.org.ua/" +
+                  chats[chatUrl][0].to.avatar.url
+                }
+              />
+            )}
+            <p>
+              чат c{" "}
+              {chats[chatUrl][0].owner._id !== _id
+                ? chats[chatUrl][0].owner.login
+                : chats[chatUrl][0].to.login}
+            </p>
+          </Link>
+        ))}
+      </div>
+      <div className="message-main">
+        <Route path="/message" render={() => <h2>У вас немає чатів</h2> } exact />
+        <Route path="/message/:chat_id" component={MessageComponent} />
+      </div>
+      <Route path="/message/:chat_id" component={MessageInput} />
+    </div>
+  );
+};
 
-export default Message
+export default Message;

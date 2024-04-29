@@ -8,20 +8,19 @@ const MessageComponent = () => {
   const user = useSelector((state) => state.auth.userInfo);
   const chats = useSelector((state) => state.message.payloadChats);
 
-  if ( !(chat_id in chats) ) return
+  if (!(chat_id in chats)) return <h2>Почніть новий чат</h2>
 
-  const chat = chats[chat_id]
+  const chat = chats[chat_id];
 
-  const to = chat[0].owner._id !== user._id ? chat[0].owner : chat[0].to
-
+  const to = chat[0].owner._id !== user._id ? chat[0].owner : chat[0].to;
 
   return (
     <>
-        {chat.map((el) => (
-            <MessageOneSMS key={el._id} smsObj={el} user_id={user._id} />
-        ))}
+      {chat.map((el) => (
+        <MessageOneSMS key={el._id} smsObj={el} user_id={user._id} />
+      ))}
     </>
-  )
+  );
 };
 
 export default MessageComponent;

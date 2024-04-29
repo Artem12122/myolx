@@ -1,44 +1,41 @@
-import { Send } from "lucide-react"
-import { useState } from "react"
-import { useAddMassageMutation } from "../store/api"
-import { useSelector } from "react-redux"
-import { useParams } from "react-router-dom/cjs/react-router-dom.min"
+import { Send } from "lucide-react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useAddMassageMutation } from "../store/api";
 
+const MessageInput = ({ my_id }) => {
+  const { chat_id } = useParams();
+  const [messageQuery, { isLoading, data }] = useAddMassageMutation();
+  const _id = useSelector((state) => state.auth.userInfo._id);
 
+  const [text, setText] = useState("");
 
-const MessageInput = ({my_id}) => {
-    const { chat_id } = useParams();
-    const [messageQuery, { isLoading, data }] = useAddMassageMutation()
-    const _id = useSelector((state) => state.auth.userInfo._id);
+  const addMassage = (e) => {
+    e.preventDefault();
 
-    const [text, setText] = useState("")
+    const to_id = chat_id
+      .split("_")
+      .filter((to_id) => to_id !== _id)
+      .join("");
 
+    messageQuery({ _id: to_id, text });
 
-    const addMassage = (e) => {
-        e.preventDefault();
+    setText("");
+  };
 
-        const to_id = chat_id.split("_").filter((to_id) => to_id !== _id).join("");
-        
-        messageQuery({ _id: to_id, text})
+  return (
+    <form className="message-input">
+      <input
+        type="text"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+      <button onClick={(e) => addMassage(e)}>
+        <Send />
+      </button>
+    </form>
+  );
+};
 
-        setText("")
-    }
-
-
-
-    return (
-        <form className="message-input">
-            <input 
-                type="text"
-                value={text}
-                onChange={e => setText(e.target.value)}
-            />
-            <button 
-                onClick={e => addMassage(e)}
-            ><Send /></button>
-        </form>
-    )
-}
-
-
-export default MessageInput
+export default MessageInput;

@@ -21,14 +21,22 @@ const Registration = () => {
 
   const regFunk = async (e) => {
     e.preventDefault();
-    setText("Завантаження");
+    const passwordRegex = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}/g;
+    const loginRegex = /(?=.*[a-z])[0-9a-zA-Z]{4,}/g;
 
-    await dispatch(actionFullRegister(login, password));
-    if (store.getState().auth.token !== null) {
-      setText("Ви успішно зареєстровані");
+    if (password.match(passwordRegex) && login.match(loginRegex)) {
+      setText("Завантаження");
+
+      await dispatch(actionFullRegister(login, password));
+      if (store.getState().auth.token !== null) {
+        setText("Ви успішно зареєстровані");
+      } else {
+        setText("Емеїл вже зайнятий");
+      }
     } else {
-      setText("Емеїл вже зайнятий");
+      setText("Пароль повинен містити як мінімум одну велику одну маленьку латинські літери і одну цифру, щонайменше 6 символів")
     }
+
   };
 
   return (
