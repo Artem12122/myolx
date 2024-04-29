@@ -142,7 +142,7 @@ const AdOne = () => {
             </div>
             <h4>{AdFindOne.title}</h4>
             <div className="AdOne-title-price">{AdFindOne.price} грн.</div>
-            <Link to="/message">
+            <Link to={`/message/${AdFindOne.owner._id}`}>
               <button className="AdOne-title-message">Повідомлення</button>
             </Link>
           </div>

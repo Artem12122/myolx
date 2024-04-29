@@ -9,12 +9,14 @@ import {persistReducer, persistStore, FLUSH,
   PURGE,
   REGISTER} from 'redux-persist';
 import feedSlice from './feedSlice/feedSlice';
+import messageSlice from './messageSlice/messageSlice';
 
 
 const store = configureStore({
     reducer: { 
                [authSlice.name]:persistReducer({key: 'auth', storage}, authSlice.reducer),
                [feedSlice.name]:persistReducer({key: 'feed', storage}, feedSlice.reducer),
+               [messageSlice.name]:persistReducer({key: 'message', storage}, messageSlice.reducer),
                [api.reducerPath]: api.reducer
              },
     middleware: (getDefaultMiddleware) => [

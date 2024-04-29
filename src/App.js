@@ -18,6 +18,9 @@ import Account from "./components/account";
 import store, { persistor } from "./store";
 import { history } from "./store/api";
 import EditAd from "./components/EditAd";
+import SearchInput from "./components/SearchInput";
+import Message from "./components/Message";
+import ScrollAdSearh from "./components/ScrollAdSearh";
 
 // store.subscribe(() => console.log(store.getState()))
 
@@ -29,6 +32,10 @@ function App() {
           <Header />
 
           <main>
+            <Route path="/" component={SearchInput} exact/>
+            <Route path="/searh" component={SearchInput} />
+            <Route path="/searh/:text" component={ScrollAdSearh} />
+            
             <Route path="/" component={Tags} exact />
             <Route path="/" component={ScrollAdAll} exact />
 
@@ -45,6 +52,8 @@ function App() {
             <Route path="/My/Ad/new/:_id" component={EditAd} exact />
 
             <Route path="/Ad/owner/:_id" component={AdComponentOwner} />
+
+            <Route path="/message" component={Message} />
           </main>
 
           <Footer />

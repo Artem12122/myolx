@@ -34,7 +34,7 @@ function Header() {
           <NavLink to="/">LoGo</NavLink>
         </li>
         <li>
-          <NavLink to="/about">Повідомлення</NavLink>
+          <NavLink to="/message">Повідомлення</NavLink>
         </li>
         <li>
           <NavLink to={link}>Ваш профіль</NavLink>

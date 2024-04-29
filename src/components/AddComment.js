@@ -3,7 +3,7 @@ import { useAddCommentMutation } from "../store/api";
 
 const AddComment = ({ _id, setLoading }) => {
   const [text, setText] = useState("");
-  const [loginQuery, { isLoading, data }] = useAddCommentMutation();
+  const [commentQuery, { isLoading, data }] = useAddCommentMutation();
 
   return (
     <form className="add-comment">
@@ -18,7 +18,7 @@ const AddComment = ({ _id, setLoading }) => {
         onClick={(e) => {
           e.preventDefault();
 
-          loginQuery({ _id, text });
+          commentQuery({ _id, text });
           setText("");
         }}
       >

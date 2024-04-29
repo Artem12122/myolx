@@ -1,10 +1,9 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { graphqlRequestBaseQuery } from "@rtk-query/graphql-request-base-query";
 import createHistory from "history/createBrowserHistory";
-import authSlice from "../authSlice/authSlice";
 
 export const api = createApi({
-  tagTypes: ["User", "Coment", "Ad"],
+  tagTypes: ["User", "Coment", "Ad", "Message"],
   baseQuery: graphqlRequestBaseQuery({
     url: "http://marketplace.node.ed.asmer.org.ua/graphql",
     prepareHeaders(headers, { getState }) {
@@ -55,13 +54,13 @@ export const api = createApi({
                   }`,
         variables: {
           owner: JSON.stringify([
-            { ___owner: {"$in": [_id] } },
-            { sort: [{ _id: -1 }] }
+            { ___owner: { $in: [_id] } },
+            { sort: [{ _id: -1 }] },
           ]),
         },
       }),
-      providesTags: (result, error, { _id }) => {
-        return [{ type: "Ad", id: _id }];
+      providesTags: (result, error, arg) => {
+        return [{ type: "Ad", id: arg?._id }];
       },
     }),
     createNewAd: builder.mutation({
@@ -72,13 +71,9 @@ export const api = createApi({
                       _id
                     }
                   }`,
-        variables: { "newAd":
-          newAd
-        }
+        variables: { newAd: newAd },
       }),
-      invalidatesTags: (result, error, arg) => [
-        { type: "Ad", id: arg._id },
-      ],
+      invalidatesTags: (result, error, arg) => [{ type: "Ad", id: arg._id }],
     }),
     getAllAdCount: builder.query({
       query: () => ({
@@ -124,9 +119,7 @@ export const api = createApi({
                     AdCount(query: $q2)
                   }`,
         variables: {
-          q2: JSON.stringify([
-            { tags: tag },
-          ]),
+          q2: JSON.stringify([{ tags: tag }]),
         },
       }),
     }),
@@ -178,10 +171,10 @@ export const api = createApi({
         variables: { q1: JSON.stringify([{ _id }]) },
       }),
       providesTags: (result, error, { _id }) => {
-        return [{ type: "Comment", id: _id }];
-      },
-      providesTags: (result, error, { _id }) => {
-        return [{ type: "Ad", id: _id }];
+        return [
+          { type: "Comment", id: _id },
+          { type: "Ad", id: _id }
+        ];
       },
     }),
     addComment: builder.mutation({
@@ -256,6 +249,59 @@ export const api = createApi({
         { type: "User", id: arg.newUser._id },
       ],
     }),
+    addMassage: builder.mutation({
+      query: ({ _id, text }) => ({
+        document: `
+                  mutation addMassage($massage: MessageInput!){
+                    MessageUpsert(message: $massage) {
+                      _id
+                    }
+                  }`,
+        variables: JSON.stringify({
+          massage: {
+            text: text,
+            to: {
+              _id: _id,
+            },
+          },
+        }),
+      }),
+      invalidatesTags: (result, error, arg) => [
+        { type: "Message", id: arg._id },
+      ],
+    }),
+    getMyMessage: builder.query({
+      query: (skip) => ({
+        document: `query MyMessage($message: String){
+                      MessageFind(query: $message) {
+                        _id
+                        owner {
+                          _id
+                          login
+                          nick
+                          avatar { _id url text originalFileName}
+                        }
+                        text
+                        createdAt
+                        to {
+                          _id
+                          login
+                          nick
+                          avatar { _id url text originalFileName}
+                        }
+                      }
+                    }`,
+        variables: {
+          message: JSON.stringify([
+            {},
+            { skip: [skip]},
+          ]),
+        },
+      }),
+      providesTags: (result, error, { _id }) => {
+        return [{ type: "Message", id: _id }];
+      },
+    }),
   }),
 });
 
@@ -273,3 +319,6 @@ export const useGetAllAdCountQuery = api.useGetAllAdCountQuery;
 export const useGetAdMyQuery = api.useGetAdMyQuery;
 export const useCreateNewAdMutation = api.useCreateNewAdMutation;
 export const useGetAllAdCountTagsQuery = api.useGetAllAdCountTagsQuery;
+export const useGetMyMessageQuery = api.useGetMyMessageQuery;
+export const useAddMassageMutation = api.useAddMassageMutation;
+
