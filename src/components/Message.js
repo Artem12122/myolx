@@ -22,7 +22,7 @@ const Message = () => {
 
   const chatsId = Object.keys(chats);
 
-//   if (chatsId.length < 1) return <h2>У вас немаєчатів</h2>
+  // if (chatsId.length < 1) return <h2>У вас немаєчатів</h2>
 
   return (
     <div className="parent-message">
@@ -64,7 +64,7 @@ const Message = () => {
         ))}
       </div>
       <div className="message-main">
-        <Route path="/message" render={() => <h2>У вас немає чатів</h2> } exact />
+        <Route path="/message" render={() => <h2>Виберіть чат</h2> } exact />
         <Route path="/message/:chat_id" component={MessageComponent} />
       </div>
       <Route path="/message/:chat_id" component={MessageInput} />

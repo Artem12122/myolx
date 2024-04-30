@@ -19,7 +19,9 @@ const MessageInput = ({ my_id }) => {
       .filter((to_id) => to_id !== _id)
       .join("");
 
-    messageQuery({ _id: to_id, text });
+    if (text.length > 0) {
+      messageQuery({ _id: to_id, text });
+    }
 
     setText("");
   };

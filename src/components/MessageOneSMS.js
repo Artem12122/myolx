@@ -1,4 +1,3 @@
-import { CircleUserRound } from "lucide-react"
 import dateCreatedAt from "../utils/date"
 
 

@@ -31,7 +31,7 @@ function Header() {
     <header className="App-header">
       <ul>
         <li className="logo">
-          <NavLink to="/">LoGo</NavLink>
+          <NavLink to="/">MyOLX</NavLink>
         </li>
         <li>
           <NavLink to="/message">Повідомлення</NavLink>

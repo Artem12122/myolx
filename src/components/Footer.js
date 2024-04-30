@@ -6,7 +6,7 @@ const Footer = () => {
 
     return (
         <footer className="App-foter">
-            text
+            Цей сайт створено як мій перший проект
         </footer>
     )
 }
