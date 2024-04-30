@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const messageSlice = createSlice({
   name: "message",
-  initialState: { payload: [] ,payloadChats: {} ,payloadSend: [], payloadReceive: [],},
+  initialState: { payload: [] ,payloadChats: {} },
   reducers: {
     allMessage(state, { payload }) {
       if (payload) {
@@ -19,7 +19,6 @@ const messageSlice = createSlice({
       state.payload = []
     },
     chats(state, { payload }) {
-      // console.log(payload)
       state.payloadChats = payload
     }
   },
