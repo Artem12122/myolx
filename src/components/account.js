@@ -130,7 +130,7 @@ const Account = () => {
         className="account-btn-edit"
         onClick={() => {
           setEditState(!editState);
-          !editState && window.location.reload();
+          !editState && history.go()
         }}
       >
         {editState ? "Редагувати профіль" : "Скасувати зміни"}
@@ -141,7 +141,6 @@ const Account = () => {
           onClick={() => {
             createUser();
             setEditState(!editState);
-            // window.location.reload();
           }}
         >
           Зберегти
